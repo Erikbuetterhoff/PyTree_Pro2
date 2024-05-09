@@ -25,6 +25,7 @@ setup(
         'console_scripts': [
             'bt_test_node = test_bt_pkg.bt_test_node:main',
             'two_test_node = test_bt_pkg.two_test_node:main',
+            'pub_test = test_bt_pkg.pub_test:main',
         ],
     },
 )

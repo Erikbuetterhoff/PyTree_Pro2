@@ -1,26 +1,32 @@
 #!/usr/bin/env python3
 
 import rclpy
-from std_msgs.msg import String
+from std_msgs.msg import Bool
+import keyboard
 
 def main():
     global mypub
     rclpy.init()
-    publishernode = rclpy.create_node('myfirstpublisher')
-    mypub = publishernode.create_publisher(String, 'myfirsttopic', 1)
-    publishernode.create_timer(0.1, mytimercallback)
+    test_pub_node = rclpy.create_node('test_pub_node')
+    mypub = test_pub_node.create_publisher(Bool, "bt_test_topic", 1)
+    test_pub_node.create_timer(0.1, mytimercallback)
     try:
-        rclpy.spin(publishernode)
+        rclpy.spin(test_pub_node)
     except KeyboardInterrupt:
         pass
 
-    publishernode.destroy_node()
+    test_pub_node.destroy_node()
     rclpy.shutdown()
+
+def change_value():
+    mymsg = not mymsg
+
+keyboard.add_hotkey("t", change_value)
 
 def mytimercallback():
     global mypub
-    mymsg = String()
-    mymsg.data = 'Hello ROS2 Communication'
+    global mymsg 
+    mymsg = Bool()
     mypub.publish(mymsg)
 
 if __name__ == '__main__':
