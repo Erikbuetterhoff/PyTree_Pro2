@@ -5,7 +5,6 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource, AnyLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, Command
 import os
-import xacro
 
 def generate_launch_description():
     pkg_share= get_package_share_directory("ur_test_pkg")
