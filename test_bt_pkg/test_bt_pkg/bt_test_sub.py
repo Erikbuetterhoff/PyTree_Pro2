@@ -11,7 +11,7 @@ from std_msgs.msg import Bool
 
 def tutorial_create_root() -> py_trees.behaviour.Behaviour:
     
-    root = py_trees.composites.Parallel(name="Parallel Dronecheck")
+    root = py_trees.composites.Sequence(name="Sequece Dronecheck")
 
     drone_not_ok = py_trees.behaviours.Success(name= "Parallel Dronecheck fail")
     drone_ok = py_trees_ros.subscribers.CheckData(name="Drohne okay?", topic_name="bt_test_topic",topic_type=Bool, variable_name="data", expected_value= True, fail_if_bad_comparison= True, qos_profile=2, clearing_policy=2)
