@@ -18,7 +18,7 @@ def tutorial_create_root() -> py_trees.behaviour.Behaviour:
         name="Return Home",
         action_type=py_trees_actions.Rotate,
         action_name="rotate",
-        action_goal=py_trees_actions.Rotate.Goal(),  # noqa
+        action_goal=py_trees_actions.Rotate.Goal(),
         generate_feedback_message=lambda msg: "{:.2f}%%".format(msg.feedback.percentage_completed)
     )
     drone_ok = py_trees_ros.subscribers.CheckData(name="Drohne okay?", topic_name="bt_test_topic",topic_type=Bool, variable_name="data", expected_value= True, fail_if_bad_comparison= True, qos_profile=2, clearing_policy=2)
