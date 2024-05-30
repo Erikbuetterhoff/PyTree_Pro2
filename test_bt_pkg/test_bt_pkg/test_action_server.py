@@ -4,7 +4,7 @@ from rclpy.node import Node
 
 import time
 
-from action_pkg.action import Test
+import action_pkg.action as Actions
 
 
 class TestActionServer(Node):          #ros2 action send_goal test_action action_pkg/action/Test "{numbers: 5}"
@@ -13,14 +13,14 @@ class TestActionServer(Node):          #ros2 action send_goal test_action action
         super().__init__('test_action_server')
         self._action_server = ActionServer(
             self,
-            Test,
+            Actions.Test,
             'test_action', #Name unter dem die Action aufgerufen wird
             self.execute_callback)
 
     def execute_callback(self, goal_handle):
         self.get_logger().info('Executing goal...')
 
-        feedback_msg = Test.Feedback()
+        feedback_msg = Actions.Test.Feedback()
 
         input = goal_handle.request.numbers
         while input > 0:
@@ -30,7 +30,7 @@ class TestActionServer(Node):          #ros2 action send_goal test_action action
             input = input - 1
             time.sleep(1)
         
-        result = Test.Result()
+        result = Actions.Test.Result()
         result.result = feedback_msg.part_result
         goal_handle.succeed()
         return result
