@@ -14,6 +14,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.*')),
         (os.path.join('share', package_name, 'action'), glob('action/*.action*')),
+        (os.path.join('share', package_name, 'subtrees'), glob('subtrees/*.py')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
