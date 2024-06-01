@@ -5,7 +5,8 @@ import py_trees
 import py_trees_ros.trees
 import sys
 import py_trees.console as console
-
+import subtrees
+import subtrees.subtree1
 
 
 def tutorial_create_root() -> py_trees.behaviour.Behaviour:
@@ -20,6 +21,8 @@ def tutorial_create_root() -> py_trees.behaviour.Behaviour:
     hotpoint_landing = py_trees.behaviours.Success("hotpoint")
     para_landing = py_trees.behaviours.Success("para_landing")
     
+    extend = subtrees.subtree1.extend_tree_1()
+    root.add_child(extend)
 
     root.add_child(drone_ok)
     root.add_child(drone_not_ok)

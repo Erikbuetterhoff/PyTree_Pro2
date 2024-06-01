@@ -14,6 +14,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.*')),
         (os.path.join('share', package_name, 'action'), glob('action/*.action*')),
+        (os.path.join('share', package_name, 'subtrees'), glob('subtrees/*.py')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -29,6 +30,7 @@ setup(
             'pub_test = test_bt_pkg.pub_test:main',
             'bt_test_sub = test_bt_pkg.bt_test_sub:main',
             'test_action_server = test_bt_pkg.test_action_server:main',
+            'empty_action_server = test_bt_pkg.empty_action_server:main',
         ],
     },
 )

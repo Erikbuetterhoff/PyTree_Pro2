@@ -6,7 +6,8 @@ import py_trees_ros.trees
 import sys
 import py_trees.console as console
 from std_msgs.msg import Bool
-import py_trees_ros_interfaces.action as py_trees_actions 
+
+import action_pkg.action as actions
 
 
 
@@ -14,12 +15,12 @@ def tutorial_create_root() -> py_trees.behaviour.Behaviour:
     
     root = py_trees.composites.Sequence(name="Sequece Dronecheck")
 
-    drone_not_ok = py_trees_ros.actions.ActionClient(       #direkt aus tutorial kopiert
+    drone_not_ok = py_trees_ros.action_clients.FromConstant(
         name="Return Home",
-        action_type=py_trees_actions.Rotate,
-        action_name="rotate",
-        action_goal=py_trees_actions.Rotate.Goal(),
-        generate_feedback_message=lambda msg: "{:.2f}%%".format(msg.feedback.percentage_completed)
+        action_type=actions.Empty,
+        action_name="empty_action",
+        action_goal=actions.Empty.Goal(),
+        generate_feedback_message=lambda msg: actions.Empty.Feedback()
     )
     drone_ok = py_trees_ros.subscribers.CheckData(name="Drohne okay?", topic_name="bt_test_topic",topic_type=Bool, variable_name="data", expected_value= True, fail_if_bad_comparison= True, qos_profile=2, clearing_policy=2)
     

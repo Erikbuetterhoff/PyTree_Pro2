@@ -7,30 +7,30 @@ import time
 import action_pkg.action as actions
 
 
-class TestActionServer(Node):          #ros2 action send_goal test_action action_pkg/action/Test "{numbers: 5}"
+class EmptyActionServer(Node):          #ros2 action send_goal test_action action_pkg/action/Test "{numbers: 5}"
 
     def __init__(self):
-        super().__init__('test_action_server')
+        super().__init__('empty_action_server')
         self._action_server = ActionServer(
             self,
-            actions.Test,
-            'test_action', #Name unter dem die Action aufgerufen wird
+            actions.Empty,
+            'empty_action', #Name unter dem die Action aufgerufen wird
             self.execute_callback)
 
     def execute_callback(self, goal_handle):
         self.get_logger().info('Executing goal...')
 
-        feedback_msg = actions.Test.Feedback()
-
-        input = goal_handle.request.numbers
-        while input > 0:
-            feedback_msg.part_result = input
+        feedback_msg = actions.Empty.Feedback()
+        
+        i=5
+        while i > 0:
+            feedback_msg.part_result = i
             self.get_logger().info(f"Feedback: {feedback_msg.part_result}")
             goal_handle.publish_feedback(feedback_msg)
-            input = input - 1
+            i = i - 1
             time.sleep(1)
         
-        result = actions.Test.Result()
+        result = actions.Empty.Result()
         result.result = feedback_msg.part_result
         goal_handle.succeed()
         return result
@@ -39,9 +39,9 @@ class TestActionServer(Node):          #ros2 action send_goal test_action action
 def main(args=None):
     rclpy.init(args=args)
 
-    test_action_server = TestActionServer()
+    empty_action_server = EmptyActionServer()
 
-    rclpy.spin(test_action_server)
+    rclpy.spin(empty_action_server)
 
 
 if __name__ == '__main__':
