@@ -16,7 +16,7 @@ def extend_tree_3() -> py_trees.behaviour.Behaviour:
 
 ##Return to Home Landing
 
-    RTH_landing = py_trees.composites.Sequence(name="RTH landing",memory=True)
+    RTH_landing = py_trees.composites.Sequence(name="RTH landing",memory=False)
     RTH_possible = py_trees_ros.subscribers.CheckData(  name="Drohne okay?", 
                                                         topic_name="bt_test_topic",
                                                         topic_type=Bool, variable_name="rth_available", ## Variable muss Status wissen?! ##
@@ -37,7 +37,7 @@ def extend_tree_3() -> py_trees.behaviour.Behaviour:
 
 ##Hot-Point Landing
 
-    HPL_landing = py_trees.composites.Sequence(name="HPL landing",memory=True)
+    HPL_landing = py_trees.composites.Sequence(name="HPL landing",memory=False)
     HPL_possible = py_trees_ros.subscribers.CheckData(  name="Drohne okay?", 
                                                         topic_name="bt_test_topic",
                                                         topic_type=Bool, variable_name="hpl_available", 
@@ -54,7 +54,7 @@ def extend_tree_3() -> py_trees.behaviour.Behaviour:
                                                         generate_feedback_message=lambda msg: actions.Empty.Feedback()
     )
 
-## parachute Landing
+##Parachute Landing
 
     para_landing = py_trees_ros.action_clients.FromConstant(    name="Emergency Landing with parachute",
                                                                 action_type=actions.Empty,
