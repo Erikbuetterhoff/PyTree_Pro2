@@ -1,4 +1,6 @@
 import py_trees
+import py_trees_ros.trees
+import action_pkg.action as actions
 
 
 def extend_tree_1() -> py_trees.behaviour.Behaviour:
@@ -15,7 +17,7 @@ def extend_tree_1() -> py_trees.behaviour.Behaviour:
         generate_feedback_message=lambda msg: actions.WPM.Feedback()
     )
 
-    check_start_on_bb = py_tree.decorators.EthernalGuard(
+    check_start_on_bb = py_trees.decorators.EthernalGuard(
         name="Sequenz abgeschlossen?",
         condition= True, #aus Beispiel Batterycheck, keine Ahung ob vlt noch Funktion nötig
         blackboard_keys={"Systemcheck_erfolgreich", "EDGE_verbunden", "WPM_geladen"}, #abfragen ob alle Werte True vielleicht ?
@@ -24,16 +26,16 @@ def extend_tree_1() -> py_trees.behaviour.Behaviour:
 
     startsequenz= py_trees.behaviours.Sequenz("Startsequenz")
     
-    check_systemcheck_on_bb = py_tree.decorators.EthernalGuard(
+    check_systemcheck_on_bb = py_trees.decorators.EthernalGuard(
         name="Systemcheck erfolgreich?",
         condition= True, 
         blackboard_keys={"Systemcheck_erfolgreich"},
-        child = systemcheck 
+        child = systemcheck
     )
 
     # systemcheck-> irgendwie werte von PSDK auslesen (actionclient)
 
-    check_EDGE_on_bb = py_tree.decorators.EthernalGuard(
+    check_EDGE_on_bb = py_trees.decorators.EthernalGuard(
         name="Mit EDGE verbunden?",
         condition= True, 
         blackboard_keys={"EDGE_verbunden"},
@@ -42,7 +44,7 @@ def extend_tree_1() -> py_trees.behaviour.Behaviour:
 
     # edge_verbinden(actionclient)
 
-    check_WPM_on_bb = py_tree.decorators.EthernalGuard(
+    check_WPM_on_bb = py_trees.decorators.EthernalGuard(
         name="WPM geladen ?",
         condition= True, 
         blackboard_keys={"WPM_geladen"},
