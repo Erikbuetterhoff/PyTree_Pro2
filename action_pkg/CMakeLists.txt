@@ -38,6 +38,7 @@ endif()
 rosidl_generate_interfaces(${PROJECT_NAME}
   "action/Test.action"
   "action/Empty.action"
+  "action/Wait.action"
 )
 
 ament_package()

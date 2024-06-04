@@ -30,6 +30,7 @@ setup(
             'pub_test = test_bt_pkg.pub_test:main',
             'bt_test_sub = test_bt_pkg.bt_test_sub:main',
             'test_action_server = test_bt_pkg.test_action_server:main',
+            'wait_action_server = test_bt_pkg.wait_action_server:main',
             'empty_action_server = test_bt_pkg.empty_action_server:main',
             'gui_pub = test_bt_pkg.gui_pub:main',
         ],

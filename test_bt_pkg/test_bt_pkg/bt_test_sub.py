@@ -15,15 +15,27 @@ def tutorial_create_root() -> py_trees.behaviour.Behaviour:
     
     root = py_trees.composites.Sequence(name="Sequece Dronecheck")
 
+    wait_goal = actions.Wait.Goal()
+    wait_goal.timer = 5
+    
     drone_not_ok = py_trees_ros.action_clients.FromConstant(
         name="Return Home",
-        action_type=actions.Empty,
-        action_name="empty_action",
-        action_goal=actions.Empty.Goal(),
-        generate_feedback_message=lambda msg: actions.Empty.Feedback()
+        action_type=actions.Wait,
+        action_name="wait_action",
+        action_goal=wait_goal,
+        generate_feedback_message=lambda msg: msg.feedback.part_result
     )
-    drone_ok = py_trees_ros.subscribers.CheckData(name="Drohne okay?", topic_name="bt_test_topic",topic_type=Bool, variable_name="data", expected_value= True, fail_if_bad_comparison= True, qos_profile=2, clearing_policy=2)
-    
+
+    drone_ok = py_trees_ros.subscribers.CheckData(
+        name="Drohne okay?", 
+        topic_name="bt_test_topic", 
+        topic_type=Bool, 
+        variable_name="data", 
+        expected_value=True, 
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=2
+    )
 
     root.add_child(drone_ok)
     root.add_child(drone_not_ok)

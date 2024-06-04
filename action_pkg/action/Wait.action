@@ -1,0 +1,5 @@
+int32 timer
+---
+string result
+---
+int32 part_result
