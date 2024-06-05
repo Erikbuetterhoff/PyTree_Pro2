@@ -8,15 +8,17 @@ import py_trees.console as console
 import subtrees
 import subtrees.subtree1
 import subtrees.subtree_landing
+import subtrees.subtree_start
 
 
 def create_main_root() -> py_trees.behaviour.Behaviour:
     
     subtree_landing = subtrees.subtree_landing.create_subtree_landing()
+    subtree_start = subtrees.subtree_start.start_sequence()
 
 
 
-    return subtree_landing
+    return subtree_start
 
 def main():
     rclpy.init()
