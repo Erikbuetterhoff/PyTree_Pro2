@@ -8,15 +8,15 @@ import action_pkg.action as actions
 
 def create_subtree_landing() -> py_trees.behaviour.Behaviour:
 
-    landing_selector = py_trees.composites.Selector("Drohne okay oder landen?",memory=True)
+    landing_selector = py_trees.composites.Selector("Drohne okay oder landen?",memory=False)
 
     wait_goal = actions.Wait.Goal()
     wait_goal.timer = 5
 
-    landing_check_selector = py_trees.composites.Sequence("Check",memory=True)
+    landing_check_selector = py_trees.composites.Sequence("Check",memory=False)
     landing_battery_condition = py_trees_ros.subscribers.CheckData(
         name="Batterie okay?", 
-        topic_name="battery_test_topic", 
+        topic_name="landing_battery_test_topic", 
         topic_type=Bool, 
         variable_name="data", 
         expected_value=True, 
@@ -26,7 +26,7 @@ def create_subtree_landing() -> py_trees.behaviour.Behaviour:
     )
     landing_dronecheck_condition = py_trees_ros.subscribers.CheckData(
         name="Drohne okay?", 
-        topic_name="landing_test_topic", 
+        topic_name="landing_landing_test_topic", 
         topic_type=Bool, 
         variable_name="data", 
         expected_value=True, 
@@ -40,7 +40,7 @@ def create_subtree_landing() -> py_trees.behaviour.Behaviour:
     landing_rth_sequence = py_trees.composites.Sequence(name="RTH Landung",memory=False)
     landing_rth_condition = py_trees_ros.subscribers.CheckData(  
         name="RTH möglich?", 
-        topic_name="rth_test_topic",
+        topic_name="landing_rth_test_topic",
         topic_type=Bool, variable_name="rth_available",
         expected_value= True, 
         fail_if_bad_comparison=True, 
@@ -58,7 +58,7 @@ def create_subtree_landing() -> py_trees.behaviour.Behaviour:
     landing_hpl_sequence = py_trees.composites.Sequence(name="HPL Landung",memory=False)
     landing_hpl_condition = py_trees_ros.subscribers.CheckData(  
         name="HPL möglich?", 
-        topic_name="hpl_test_topic",
+        topic_name="landing_hpl_test_topic",
         topic_type=Bool, variable_name="rth_available",
         expected_value= True, 
         fail_if_bad_comparison=True, 
