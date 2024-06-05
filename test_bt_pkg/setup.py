@@ -33,7 +33,12 @@ setup(
             'wait_action_server = test_bt_pkg.wait_action_server:main',
             'empty_action_server = test_bt_pkg.empty_action_server:main',
             'gui_pub = test_bt_pkg.gui_pub:main',
+<<<<<<< HEAD
+            'bb_publisher = test_bt_pkg.gui_pub:main',
+
+=======
             'main_tree = test_bt_pkg.main_tree:main',
+>>>>>>> e011aff26f0f5c313d24e34fdaec9f498d1ee2a9
         ],
     },
 )
