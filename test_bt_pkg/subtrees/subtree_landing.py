@@ -6,106 +6,90 @@ import py_trees.console as console
 from std_msgs.msg import Bool
 import action_pkg.action as actions
 
-def extend_tree_3() -> py_trees.behaviour.Behaviour:
+def create_subtree_landing() -> py_trees.behaviour.Behaviour:
 
+    landing_selector = py_trees.composites.Selector("Drohne okay oder landen?",memory=True)
 
-    root = py_trees.composites.Sequence("Check battery",memory=True)
-    landing = py_trees.composites.Sequence("Choose landing",memory=True)
+    wait_goal = actions.Wait.Goal()
+    wait_goal.timer = 5
 
-    battery_status = py_trees.behaviours.Success(name="Battery okay?") ### Wie durchgehend prüfen oder Threshold ausreichend ###
+    landing_check_selector = py_trees.composites.Sequence("Check",memory=True)
+    landing_battery_condition = py_trees_ros.subscribers.CheckData(
+        name="Batterie okay?", 
+        topic_name="battery_test_topic", 
+        topic_type=Bool, 
+        variable_name="data", 
+        expected_value=True, 
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=2
+    )
+    landing_dronecheck_condition = py_trees_ros.subscribers.CheckData(
+        name="Drohne okay?", 
+        topic_name="landing_test_topic", 
+        topic_type=Bool, 
+        variable_name="data", 
+        expected_value=True, 
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=2
+    )
 
-##Return to Home Landing
+    landing_sub_sequence = py_trees.composites.Sequence(name="Landung",memory=False)
 
-    RTH_landing = py_trees.composites.Sequence(name="RTH landing",memory=False)
-    RTH_possible = py_trees_ros.subscribers.CheckData(  name="Drohne okay?", 
-                                                        topic_name="bt_test_topic",
-                                                        topic_type=Bool, variable_name="rth_available", ## Variable muss Status wissen?! ##
-                                                        expected_value= True, 
-                                                        fail_if_bad_comparison=True, 
-                                                        qos_profile=2, 
-                                                        clearing_policy=2
-                                                        )
-
-    RTH_do = py_trees_ros.action_clients.FromConstant(  name="Return to Home",
-                                                        action_type=actions.Empty,
-                                                        action_name="XXXXXXX",
-                                                        action_goal=actions.Empty.Goal(),
-                                                        generate_feedback_message=lambda msg: actions.Empty.Feedback()
-                                                        )
+    landing_rth_sequence = py_trees.composites.Sequence(name="RTH Landung",memory=False)
+    landing_rth_condition = py_trees_ros.subscribers.CheckData(  
+        name="RTH möglich?", 
+        topic_name="rth_test_topic",
+        topic_type=Bool, variable_name="rth_available",
+        expected_value= True, 
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=2
+        )
+    landing_rth_action = py_trees_ros.action_clients.FromConstant(  
+        name="RTH aktivieren",
+        action_type=actions.Wait,
+        action_name="wait_action",
+        action_goal=wait_goal,
+        generate_feedback_message=lambda msg: msg.feedback.part_result
+    )
+    
+    landing_hpl_sequence = py_trees.composites.Sequence(name="HPL Landung",memory=False)
+    landing_hpl_condition = py_trees_ros.subscribers.CheckData(  
+        name="HPL möglich?", 
+        topic_name="hpl_test_topic",
+        topic_type=Bool, variable_name="rth_available",
+        expected_value= True, 
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=2
+        )
+    landing_hpl_action = py_trees_ros.action_clients.FromConstant(  
+        name="HPL aktivieren",
+        action_type=actions.Wait,
+        action_name="wait_action",
+        action_goal=wait_goal,
+        generate_feedback_message=lambda msg: msg.feedback.part_result
+    )
+    
+    landing_para_action = py_trees_ros.action_clients.FromConstant(  
+        name="Fallschirm aktivieren",
+        action_type=actions.Wait,
+        action_name="wait_action",
+        action_goal=wait_goal,
+        generate_feedback_message=lambda msg: msg.feedback.part_result
+    )
 
     
 
-##Hot-Point Landing
-
-    HPL_landing = py_trees.composites.Sequence(name="HPL landing",memory=False)
-    HPL_possible = py_trees_ros.subscribers.CheckData(  name="Drohne okay?", 
-                                                        topic_name="bt_test_topic",
-                                                        topic_type=Bool, variable_name="hpl_available", 
-                                                        expected_value= True, 
-                                                        fail_if_bad_comparison=True, 
-                                                        qos_profile=2, 
-                                                        clearing_policy=2
-                                                        )
-
-    HPL_do = py_trees_ros.action_clients.FromConstant(  name="Hot-Point Landing",
-                                                        action_type=actions.Empty,
-                                                        action_name="XXXXX",
-                                                        action_goal=actions.Empty.Goal(),
-                                                        generate_feedback_message=lambda msg: actions.Empty.Feedback()
-    )
-
-##Parachute Landing
-
-    para_landing = py_trees_ros.action_clients.FromConstant(    name="Emergency Landing with parachute",
-                                                                action_type=actions.Empty,
-                                                                action_name="XXXXX",
-                                                                action_goal=actions.Empty.Goal(),
-                                                                generate_feedback_message=lambda msg: actions.Empty.Feedback()
-    )
 
 
-    root.add_children([battery_status,landing])
-    landing.add_children([RTH_landing,HPL_landing,para_landing])
+    landing_selector.add_children([landing_check_selector,landing_sub_sequence])
+    landing_check_selector.add_children([landing_battery_condition,landing_dronecheck_condition])
 
-    RTH_landing.add_children([RTH_possible,RTH_do])
-    HPL_landing.add_children([HPL_possible,HPL_do])
+    landing_sub_sequence.add_children([landing_rth_sequence,landing_hpl_sequence,landing_para_action])
+    landing_rth_sequence.add_children([landing_rth_condition,landing_rth_action])
+    landing_hpl_sequence.add_children([landing_hpl_condition,landing_hpl_action])
 
-    return root
-
-
-
-def main():
-    rclpy.init()
-
-    root = extend_tree_3()
-    tree = py_trees_ros.trees.BehaviourTree(
-        root=root,
-        unicode_tree_debug=True
-    )
-    try:
-        tree.setup(timeout=15.0)
-    except py_trees_ros.exceptions.TimedOutError as e:
-        console.logerror(console.red + "failed to setup the tree, aborting [{}]".format(str(e)) + console.reset)
-        tree.shutdown()
-        rclpy.try_shutdown()
-        sys.exit(1)
-    except KeyboardInterrupt:
-        # not a warning, nor error, usually a user-initiated shutdown
-        console.logerror("tree setup interrupted")
-        tree.shutdown()
-        rclpy.try_shutdown()
-        sys.exit(1)
-
-
-    tree.tick_tock(period_ms=1000.0)
-
-    try:
-        rclpy.spin(tree.node)
-    except KeyboardInterrupt:
-        tree.shutdown()
-        rclpy.shutdown()
-    
-
-
-if __name__ == '__main__':
-    main()
+    return landing_selector
