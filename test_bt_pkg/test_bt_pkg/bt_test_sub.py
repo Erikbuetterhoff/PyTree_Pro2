@@ -14,15 +14,12 @@ import action_pkg.action as actions
 def tutorial_create_root() -> py_trees.behaviour.Behaviour:
     
     root = py_trees.composites.Sequence(name="Sequece Dronecheck")
-
-    wait_goal = actions.Wait.Goal()
-    wait_goal.timer = 5
-    
+   
     drone_not_ok = py_trees_ros.action_clients.FromConstant(
         name="Return Home",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
