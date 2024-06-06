@@ -5,44 +5,25 @@ import py_trees
 import py_trees_ros.trees
 import sys
 import py_trees.console as console
-from std_msgs.msg import Bool
+import subtrees
+import subtrees.subtree1
+import subtrees.subtree_landing
+import subtrees.subtree_start
 
-import action_pkg.action as actions
 
-
-
-def tutorial_create_root() -> py_trees.behaviour.Behaviour:
+def create_main_root() -> py_trees.behaviour.Behaviour:
     
-    root = py_trees.composites.Sequence(name="Sequece Dronecheck")
-   
-    drone_not_ok = py_trees_ros.action_clients.FromConstant(
-        name="Return Home",
-        action_type=actions.Wait,
-        action_name="wait_action",
-        action_goal=actions.Wait.Goal(timer=5),
-        generate_feedback_message=lambda msg: msg.feedback.part_result
-    )
+    subtree_landing = subtrees.subtree_landing.create_subtree_landing()
+    subtree_start = subtrees.subtree_start.start_sequence()
 
-    drone_ok = py_trees_ros.subscribers.CheckData(
-        name="Drohne okay?", 
-        topic_name="bt_test_topic", 
-        topic_type=Bool, 
-        variable_name="data", 
-        expected_value=True, 
-        fail_if_bad_comparison=True, 
-        qos_profile=2, 
-        clearing_policy=2
-    )
 
-    root.add_child(drone_ok)
-    root.add_child(drone_not_ok)
 
-    return root
+    return subtree_start
 
 def main():
     rclpy.init()
 
-    root = tutorial_create_root()
+    root =create_main_root()
     tree = py_trees_ros.trees.BehaviourTree(
         root=root,
         unicode_tree_debug=True

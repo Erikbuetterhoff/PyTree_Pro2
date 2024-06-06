@@ -1,0 +1,2035 @@
+{
+  "version": "0.3.0",
+  "scope": "project",
+  "selectedTree": "25ee7183-8dbb-441b-8e98-6299428e338e",
+  "trees": [
+    {
+      "version": "0.3.0",
+      "scope": "tree",
+      "id": "c6d42773-9a7c-4e5a-a246-58c02c1ad880",
+      "title": "A behavior tree",
+      "description": "",
+      "root": null,
+      "properties": {},
+      "nodes": {},
+      "display": {
+        "camera_x": 960,
+        "camera_y": 543,
+        "camera_z": 1,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "tree",
+      "id": "25ee7183-8dbb-441b-8e98-6299428e338e",
+      "title": "BT_M300",
+      "description": "",
+      "root": "ba485ed0-7aa6-4a3e-9ba2-4fc4420632df",
+      "properties": {},
+      "nodes": {
+        "f57db361-a44a-430c-9e75-f09a32984d1a": {
+          "id": "f57db361-a44a-430c-9e75-f09a32984d1a",
+          "name": "Flugumgebung okay",
+          "title": "Flugumgebung okay",
+          "description": "zone_envcheck_condition\n\nHier gilt es plötzlich Luftraumbeschränkungen durch priorisierte Vehikel wie Helikopter zu beachten und folglich die richtigen Aktionen einzuleiten. Offen ist, wie bei bestimmten Events rechtlich nach Vorschrift zu handeln ist. Muss eine HotPoint Landung durchgeführt werden oder reicht ein Umfliegen, oder RTH? Woher kommen die Infos über den Flugraum (DJI App?) und wie kann hier automatisiert eine Entscheidung getroffen werden",
+          "properties": {},
+          "display": {
+            "x": 1776,
+            "y": -216
+          }
+        },
+        "1b1090f1-fc8c-4da7-8032-c0757f09f1cc": {
+          "id": "1b1090f1-fc8c-4da7-8032-c0757f09f1cc",
+          "name": "Flugverbotszone verlassen",
+          "title": "Flugverbotszone verlassen",
+          "description": "zone_leavezone_action",
+          "properties": {},
+          "display": {
+            "x": 1848,
+            "y": -120
+          }
+        },
+        "461645ff-1f32-4e38-93d7-5257cbc615ef": {
+          "id": "461645ff-1f32-4e38-93d7-5257cbc615ef",
+          "name": "Priority",
+          "title": "zone_sub_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 2064,
+            "y": -216
+          },
+          "children": [
+            "1b1090f1-fc8c-4da7-8032-c0757f09f1cc",
+            "8085b097-4bc6-4326-8360-fd32e51fb18c",
+            "d5640175-b16b-4830-846f-d3377bcbee56"
+          ]
+        },
+        "8085b097-4bc6-4326-8360-fd32e51fb18c": {
+          "id": "8085b097-4bc6-4326-8360-fd32e51fb18c",
+          "name": "HotPoint Landing",
+          "title": "Hotpoint Landing",
+          "description": "zone_hpl_action\nwarum HPL und RTH einfach ausgeführt???",
+          "properties": {},
+          "display": {
+            "x": 2076,
+            "y": -120
+          }
+        },
+        "d5640175-b16b-4830-846f-d3377bcbee56": {
+          "id": "d5640175-b16b-4830-846f-d3377bcbee56",
+          "name": "RTH",
+          "title": "RTH",
+          "description": "zone_rth_action",
+          "properties": {},
+          "display": {
+            "x": 2268,
+            "y": -120
+          }
+        },
+        "996c02b5-5568-4106-9b3d-b3d2ffe3c6c5": {
+          "id": "996c02b5-5568-4106-9b3d-b3d2ffe3c6c5",
+          "name": "Priority",
+          "title": "zone_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 1920,
+            "y": -312
+          },
+          "children": [
+            "f57db361-a44a-430c-9e75-f09a32984d1a",
+            "461645ff-1f32-4e38-93d7-5257cbc615ef"
+          ]
+        },
+        "35237a54-e158-4c14-8eb7-6fae685e361f": {
+          "id": "35237a54-e158-4c14-8eb7-6fae685e361f",
+          "name": "Batteriestatus okay",
+          "title": "Drohne okay?",
+          "description": "landing_dronecheck_condition",
+          "properties": {},
+          "display": {
+            "x": 396,
+            "y": -216
+          }
+        },
+        "10cee77d-15ec-4773-8a5d-3a35c644a4a6": {
+          "id": "10cee77d-15ec-4773-8a5d-3a35c644a4a6",
+          "name": "Priority",
+          "title": "landing_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 468,
+            "y": -348
+          },
+          "children": [
+            "f4a89236-b8fc-4cb4-a654-8b267a7cb968",
+            "62bfc53e-80d6-4513-8c9b-3955f11d4218"
+          ]
+        },
+        "81d93a97-e856-46a3-8dc3-2a2115518f3e": {
+          "id": "81d93a97-e856-46a3-8dc3-2a2115518f3e",
+          "name": "HotPoint Landing",
+          "title": "Hotpoint Landing",
+          "description": "landing_hpl_action",
+          "properties": {},
+          "display": {
+            "x": 780,
+            "y": 48
+          }
+        },
+        "cace2ae4-6275-45d0-adb7-a1af96badbbd": {
+          "id": "cace2ae4-6275-45d0-adb7-a1af96badbbd",
+          "name": "RTH",
+          "title": "RTH",
+          "description": "landing_rth_action",
+          "properties": {},
+          "display": {
+            "x": 408,
+            "y": -60
+          }
+        },
+        "cbb6dafb-44ca-4c79-bc04-0dfcfe7c84bd": {
+          "id": "cbb6dafb-44ca-4c79-bc04-0dfcfe7c84bd",
+          "name": "Fallschirm Landung",
+          "title": "Fallschirm Landung",
+          "description": "landing_para_action",
+          "properties": {},
+          "display": {
+            "x": 876,
+            "y": -96
+          }
+        },
+        "f72037c1-d214-446d-8533-21516be8e6f0": {
+          "id": "f72037c1-d214-446d-8533-21516be8e6f0",
+          "name": "RTH möglich",
+          "title": "RTH möglich",
+          "description": "landing_rth_condition",
+          "properties": {},
+          "display": {
+            "x": 216,
+            "y": -60
+          }
+        },
+        "e663dd50-f6e5-436b-8d87-e61c8831634c": {
+          "id": "e663dd50-f6e5-436b-8d87-e61c8831634c",
+          "name": "Sequence",
+          "title": "landing_hpl_sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 636,
+            "y": -120
+          },
+          "children": [
+            "3c5aa2b4-6d4c-42ed-89f5-d669c881aa56",
+            "81d93a97-e856-46a3-8dc3-2a2115518f3e"
+          ]
+        },
+        "3c5aa2b4-6d4c-42ed-89f5-d669c881aa56": {
+          "id": "3c5aa2b4-6d4c-42ed-89f5-d669c881aa56",
+          "name": "HPL möglich",
+          "title": "HPL möglich",
+          "description": "landing_hpl_condition",
+          "properties": {},
+          "display": {
+            "x": 576,
+            "y": 48
+          }
+        },
+        "ba485ed0-7aa6-4a3e-9ba2-4fc4420632df": {
+          "id": "ba485ed0-7aa6-4a3e-9ba2-4fc4420632df",
+          "name": "Sequence",
+          "title": "Sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 3468,
+            "y": -1320
+          },
+          "children": [
+            "10cee77d-15ec-4773-8a5d-3a35c644a4a6",
+            "afc1aed8-0f49-4a19-8880-9bc98322fbe2",
+            "525e2afb-9969-4ed4-88d2-da44b4f1bdf7",
+            "d5ebbff3-7538-4bfa-8f73-361e3c20c671",
+            "996c02b5-5568-4106-9b3d-b3d2ffe3c6c5",
+            "72e5b788-552c-48c6-b03c-c6bb09abc190",
+            "5fe71ede-e55f-4345-80a3-fd1d9b2a8a86",
+            "f403a3d7-7acd-43d3-8ff4-44243176897d"
+          ]
+        },
+        "62bfc53e-80d6-4513-8c9b-3955f11d4218": {
+          "id": "62bfc53e-80d6-4513-8c9b-3955f11d4218",
+          "name": "Priority",
+          "title": "landing_sub_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 672,
+            "y": -216
+          },
+          "children": [
+            "d10a9464-2816-4741-b9e4-0bf5b7d41a66",
+            "e663dd50-f6e5-436b-8d87-e61c8831634c",
+            "cbb6dafb-44ca-4c79-bc04-0dfcfe7c84bd"
+          ]
+        },
+        "d10a9464-2816-4741-b9e4-0bf5b7d41a66": {
+          "id": "d10a9464-2816-4741-b9e4-0bf5b7d41a66",
+          "name": "Sequence",
+          "title": "landing_rth_sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 300,
+            "y": -132
+          },
+          "children": [
+            "f72037c1-d214-446d-8533-21516be8e6f0",
+            "cace2ae4-6275-45d0-adb7-a1af96badbbd"
+          ]
+        },
+        "4267e76f-0155-4e57-881c-0b51adb4c0b3": {
+          "id": "4267e76f-0155-4e57-881c-0b51adb4c0b3",
+          "name": "Startsequenz abgeschlossen?",
+          "title": "Startsequenz abgeschlossen?",
+          "description": "start_startup_condition\nStartsequenz abgeschlossen, wenn\n- alle Systeme verbunden (ROS publisher gibt keine Errors aus oder sendet konstant Daten)\n- Waypointmission geladen (Koordinaten bis Ziel geladen und Flugtrajectory bestimmt)\n- alle Flugsysteme funktionieren (alle ROS topics senden Daten ohne Error)\n- sobald alle Anforderungen für den Abschluss der Startsequenz erfolgt sind, ist die Condition \"Startsequenz abgeschlossen\" erfüllt und kann Success an die Sequenz weitergeben.",
+          "properties": {},
+          "display": {
+            "x": -1704,
+            "y": -24
+          }
+        },
+        "d01d2f53-a5a7-4b04-8202-979cec4a8823": {
+          "id": "d01d2f53-a5a7-4b04-8202-979cec4a8823",
+          "name": "Letzter Waypoint erreicht?",
+          "title": "Letzter WP erreicht?",
+          "description": "waypoint_condition\nAbgleich Zielkoordinate mit Ist-Koordinate",
+          "properties": {},
+          "display": {
+            "x": 3744,
+            "y": -144
+          }
+        },
+        "afc19e68-4be6-4e51-827e-173390d259c3": {
+          "id": "afc19e68-4be6-4e51-827e-173390d259c3",
+          "name": "Systemcheck erfolgreich?",
+          "title": "Systemcheck erfolgreich?",
+          "description": "start_systemcheck_condition\n\nAlle DJI spezifischen Systemchecks\n- GPS\n- Collision System\n-",
+          "properties": {},
+          "display": {
+            "x": -1680,
+            "y": 144
+          }
+        },
+        "54badf1b-e974-4ea8-a68e-ae1bf589365b": {
+          "id": "54badf1b-e974-4ea8-a68e-ae1bf589365b",
+          "name": "Priority",
+          "title": "start_check_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -1608,
+            "y": 48
+          },
+          "children": [
+            "afc19e68-4be6-4e51-827e-173390d259c3",
+            "b47170bb-fa95-45d7-8b6c-e397a486f376"
+          ]
+        },
+        "b47170bb-fa95-45d7-8b6c-e397a486f376": {
+          "id": "b47170bb-fa95-45d7-8b6c-e397a486f376",
+          "name": "Systemcheck durchführen",
+          "title": "Systemcheck durchführen",
+          "description": "start_systemcheck_action",
+          "properties": {},
+          "display": {
+            "x": -1416,
+            "y": 144
+          }
+        },
+        "9e51f52f-adbe-4f0e-9aeb-89e8669a580a": {
+          "id": "9e51f52f-adbe-4f0e-9aeb-89e8669a580a",
+          "name": "Mit Edge verbunden",
+          "title": "Mit EDGE verbunden",
+          "description": "start_edge_condition",
+          "properties": {},
+          "display": {
+            "x": -1116,
+            "y": 144
+          }
+        },
+        "05646a58-fce4-4a29-8a56-00dbb646596e": {
+          "id": "05646a58-fce4-4a29-8a56-00dbb646596e",
+          "name": "Mit EDGE verbinden",
+          "title": "Mit EDGE verbinden",
+          "description": "start_edge_action",
+          "properties": {},
+          "display": {
+            "x": -876,
+            "y": 144
+          }
+        },
+        "7ad5c38b-f807-46a5-9335-46fe36da0a9e": {
+          "id": "7ad5c38b-f807-46a5-9335-46fe36da0a9e",
+          "name": "Sequence",
+          "title": "start_sub_sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -1380,
+            "y": -48
+          },
+          "children": [
+            "54badf1b-e974-4ea8-a68e-ae1bf589365b",
+            "ba91df4a-7c06-49d6-85ca-36e574659ab5",
+            "ef977a00-c972-4716-95d7-e205fad79dfe"
+          ]
+        },
+        "ba91df4a-7c06-49d6-85ca-36e574659ab5": {
+          "id": "ba91df4a-7c06-49d6-85ca-36e574659ab5",
+          "name": "Priority",
+          "title": "start_edge_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -1044,
+            "y": 48
+          },
+          "children": [
+            "9e51f52f-adbe-4f0e-9aeb-89e8669a580a",
+            "05646a58-fce4-4a29-8a56-00dbb646596e"
+          ]
+        },
+        "6ba26796-907c-469a-8a14-04bfda76bb81": {
+          "id": "6ba26796-907c-469a-8a14-04bfda76bb81",
+          "name": "WPM geladen",
+          "title": "WPM geladen?",
+          "description": "start_wpmload_condition",
+          "properties": {},
+          "display": {
+            "x": -636,
+            "y": 144
+          }
+        },
+        "7646630d-016c-4b9d-b2cb-6539255213ff": {
+          "id": "7646630d-016c-4b9d-b2cb-6539255213ff",
+          "name": "WPM ladem",
+          "title": "WPM laden",
+          "description": "start_wpmload_action",
+          "properties": {},
+          "display": {
+            "x": -420,
+            "y": 144
+          }
+        },
+        "ef977a00-c972-4716-95d7-e205fad79dfe": {
+          "id": "ef977a00-c972-4716-95d7-e205fad79dfe",
+          "name": "Priority",
+          "title": "start_wpmload_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -600,
+            "y": 48
+          },
+          "children": [
+            "6ba26796-907c-469a-8a14-04bfda76bb81",
+            "7646630d-016c-4b9d-b2cb-6539255213ff"
+          ]
+        },
+        "f08a3225-a69e-49a1-81fb-e1262a883e63": {
+          "id": "f08a3225-a69e-49a1-81fb-e1262a883e63",
+          "name": "Zum letzten WP fliegen",
+          "title": "Zum letzten WP fliegen",
+          "description": "waypoint_action\nExecute WPM",
+          "properties": {},
+          "display": {
+            "x": 3996,
+            "y": -144
+          }
+        },
+        "9a513daf-18b6-4335-8a2c-1198d61bba06": {
+          "id": "9a513daf-18b6-4335-8a2c-1198d61bba06",
+          "name": "Keine Kollision",
+          "title": "Keine Kollision",
+          "description": "collision_condition",
+          "properties": {},
+          "display": {
+            "x": 3228,
+            "y": -156
+          }
+        },
+        "afb75a92-4c32-4f1e-8a48-172c15450c5f": {
+          "id": "afb75a92-4c32-4f1e-8a48-172c15450c5f",
+          "name": "Hindernis umfliegen",
+          "title": "Hindernis umfliegen",
+          "description": "collision_action",
+          "properties": {},
+          "display": {
+            "x": 3480,
+            "y": -156
+          }
+        },
+        "525e2afb-9969-4ed4-88d2-da44b4f1bdf7": {
+          "id": "525e2afb-9969-4ed4-88d2-da44b4f1bdf7",
+          "name": "Priority",
+          "title": "collision_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 3336,
+            "y": -324
+          },
+          "children": [
+            "9a513daf-18b6-4335-8a2c-1198d61bba06",
+            "afb75a92-4c32-4f1e-8a48-172c15450c5f"
+          ]
+        },
+        "d5ebbff3-7538-4bfa-8f73-361e3c20c671": {
+          "id": "d5ebbff3-7538-4bfa-8f73-361e3c20c671",
+          "name": "Priority",
+          "title": "waypoint_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 3720,
+            "y": -312
+          },
+          "children": [
+            "d01d2f53-a5a7-4b04-8202-979cec4a8823",
+            "f08a3225-a69e-49a1-81fb-e1262a883e63"
+          ]
+        },
+        "57046d45-a9df-43c4-8381-58ff182b6891": {
+          "id": "57046d45-a9df-43c4-8381-58ff182b6891",
+          "name": "Lidar aktiv?",
+          "title": "Lidar aktiv",
+          "description": "lidar_checkactive_condition\nLIDAR System aktiv und betriebsbereit",
+          "properties": {},
+          "display": {
+            "x": 4332,
+            "y": -12
+          }
+        },
+        "e4b299dc-d63c-4fb0-8108-570390957dfe": {
+          "id": "e4b299dc-d63c-4fb0-8108-570390957dfe",
+          "name": "Lidar verbinden",
+          "title": "Lidar verbinden",
+          "description": "lidar_checkactive_action",
+          "properties": {},
+          "display": {
+            "x": 4548,
+            "y": -12
+          }
+        },
+        "6f7b767d-a4f3-4415-ac72-6e1871888cd2": {
+          "id": "6f7b767d-a4f3-4415-ac72-6e1871888cd2",
+          "name": "LIDAR scan durchführen",
+          "title": "LIDAR scan durchführen",
+          "description": "lidar_scan_action",
+          "properties": {},
+          "display": {
+            "x": 5352,
+            "y": 168
+          }
+        },
+        "55ca1632-117f-49ec-8cd8-db1378e4904e": {
+          "id": "55ca1632-117f-49ec-8cd8-db1378e4904e",
+          "name": "LIDAR Aufnahme erfolgreich?",
+          "title": "LIDAR Aufnahme erfolgreich?",
+          "description": "lidar_rec_condition\nLokalisierung der Drohne mittels LIDAR möglich\nThreshold für Bewertung der Qualität des Scans nötig",
+          "properties": {},
+          "display": {
+            "x": 4776,
+            "y": 96
+          }
+        },
+        "72e5b788-552c-48c6-b03c-c6bb09abc190": {
+          "id": "72e5b788-552c-48c6-b03c-c6bb09abc190",
+          "name": "Sequence",
+          "title": "Make sure Lidar scan is done",
+          "description": "lidar_sequence\nBeim Landeanflug muss das LIDAR System aktiviert werden und die Lokalisierung der Drohne mittels LIDAR bis zum Landebefehl ermöglicht werden",
+          "properties": {},
+          "display": {
+            "x": 4524,
+            "y": -300
+          },
+          "children": [
+            "c03f2e57-f406-4d7f-84c2-d3efe6be47fe",
+            "53adbb8f-5457-4e46-839e-baecfa7771d5"
+          ]
+        },
+        "c03f2e57-f406-4d7f-84c2-d3efe6be47fe": {
+          "id": "c03f2e57-f406-4d7f-84c2-d3efe6be47fe",
+          "name": "Priority",
+          "title": "Priority",
+          "description": "lidar_checkactive_selector",
+          "properties": {},
+          "display": {
+            "x": 4416,
+            "y": -132
+          },
+          "children": [
+            "57046d45-a9df-43c4-8381-58ff182b6891",
+            "e4b299dc-d63c-4fb0-8108-570390957dfe"
+          ]
+        },
+        "218b5223-e3b2-42a6-9523-6b8302e6e597": {
+          "id": "218b5223-e3b2-42a6-9523-6b8302e6e597",
+          "name": "Priority",
+          "title": "lidar_rec_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 4920,
+            "y": 0
+          },
+          "children": [
+            "55ca1632-117f-49ec-8cd8-db1378e4904e",
+            "21097bcd-a086-46ea-ae37-ca703e4a21c4"
+          ]
+        },
+        "53adbb8f-5457-4e46-839e-baecfa7771d5": {
+          "id": "53adbb8f-5457-4e46-839e-baecfa7771d5",
+          "name": "RepeatUntilSuccess",
+          "title": "Repeat Until Success",
+          "description": "",
+          "properties": {
+            "maxLoop": -1
+          },
+          "display": {
+            "x": 4776,
+            "y": -120
+          },
+          "child": "218b5223-e3b2-42a6-9523-6b8302e6e597"
+        },
+        "21097bcd-a086-46ea-ae37-ca703e4a21c4": {
+          "id": "21097bcd-a086-46ea-ae37-ca703e4a21c4",
+          "name": "Sequence",
+          "title": "lidar_scan_sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 5184,
+            "y": 108
+          },
+          "children": [
+            "6f7b767d-a4f3-4415-ac72-6e1871888cd2",
+            "9da0135f-3e4d-4e18-8cb3-6219f42ca38c"
+          ]
+        },
+        "9da0135f-3e4d-4e18-8cb3-6219f42ca38c": {
+          "id": "9da0135f-3e4d-4e18-8cb3-6219f42ca38c",
+          "name": "Höhe reduzieren",
+          "title": "Höhe reduzieren",
+          "description": "lidar_scan_height_action\nHöhe um x Meter reduzieren",
+          "properties": {},
+          "display": {
+            "x": 5088,
+            "y": 168
+          }
+        },
+        "5bfcddb9-f48b-4caf-9fab-d5b9c410853d": {
+          "id": "5bfcddb9-f48b-4caf-9fab-d5b9c410853d",
+          "name": "Zielhöhe Gestenerkennung erreicht?",
+          "title": "Zielhöhe Gestenerkennung erreicht?",
+          "description": "gesture_height_condition",
+          "properties": {},
+          "display": {
+            "x": 5772,
+            "y": 84
+          }
+        },
+        "ca0b5d6c-6ebc-471f-96a8-4658bd6cbfcd": {
+          "id": "ca0b5d6c-6ebc-471f-96a8-4658bd6cbfcd",
+          "name": "Höhe reduzieren",
+          "title": "Höhe reduzieren",
+          "description": "gesture_height_action",
+          "properties": {},
+          "display": {
+            "x": 6072,
+            "y": 84
+          }
+        },
+        "9c8010c0-3977-4354-965a-be70d684cada": {
+          "id": "9c8010c0-3977-4354-965a-be70d684cada",
+          "name": "Keine Abbruchgeste erkannt",
+          "title": "Keine Abbruchgeste erkannt",
+          "description": "april_gesture_condition",
+          "properties": {},
+          "display": {
+            "x": 6888,
+            "y": -12
+          }
+        },
+        "161d8788-2402-41b1-811b-a034e659d693": {
+          "id": "161d8788-2402-41b1-811b-a034e659d693",
+          "name": "Hold",
+          "title": "Hold",
+          "description": "april_gesture_hold_action\nFlughöhe halten, bis Landesignal gegeben",
+          "properties": {},
+          "display": {
+            "x": 7224,
+            "y": 240
+          }
+        },
+        "b7dda382-4016-42e8-827f-923c86820664": {
+          "id": "b7dda382-4016-42e8-827f-923c86820664",
+          "name": "Priority",
+          "title": "gesture_height_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 5796,
+            "y": -36
+          },
+          "children": [
+            "5bfcddb9-f48b-4caf-9fab-d5b9c410853d",
+            "ca0b5d6c-6ebc-471f-96a8-4658bd6cbfcd"
+          ]
+        },
+        "ecf19b10-7443-43de-87e1-2c9a08082eb8": {
+          "id": "ecf19b10-7443-43de-87e1-2c9a08082eb8",
+          "name": "RepeatUntilSuccess",
+          "title": "Repeat Until Success",
+          "description": "",
+          "properties": {
+            "maxLoop": -1
+          },
+          "display": {
+            "x": 5616,
+            "y": -108
+          },
+          "child": "b7dda382-4016-42e8-827f-923c86820664"
+        },
+        "5fe71ede-e55f-4345-80a3-fd1d9b2a8a86": {
+          "id": "5fe71ede-e55f-4345-80a3-fd1d9b2a8a86",
+          "name": "Sequence",
+          "title": "gesture_sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 5784,
+            "y": -288
+          },
+          "children": [
+            "ecf19b10-7443-43de-87e1-2c9a08082eb8",
+            "c21ecbcb-b225-45bf-808e-62ead85b01b7"
+          ]
+        },
+        "c21ecbcb-b225-45bf-808e-62ead85b01b7": {
+          "id": "c21ecbcb-b225-45bf-808e-62ead85b01b7",
+          "name": "Priority",
+          "title": "gesture_active_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 6108,
+            "y": -108
+          },
+          "children": [
+            "5678d6b3-38e3-4c9a-8160-b66c69d0fb66",
+            "8075f76d-20e2-424c-9eb9-dde2d191a01b"
+          ]
+        },
+        "8075f76d-20e2-424c-9eb9-dde2d191a01b": {
+          "id": "8075f76d-20e2-424c-9eb9-dde2d191a01b",
+          "name": "Gestenerkennung aktivieren",
+          "title": "Gestenerkennung aktivieren",
+          "description": "gesture_active_action",
+          "properties": {},
+          "display": {
+            "x": 6600,
+            "y": -12
+          }
+        },
+        "5678d6b3-38e3-4c9a-8160-b66c69d0fb66": {
+          "id": "5678d6b3-38e3-4c9a-8160-b66c69d0fb66",
+          "name": "Gestenerkennung aktiv",
+          "title": "Gestenerkennung aktiv?",
+          "description": "gesture_active_condition",
+          "properties": {},
+          "display": {
+            "x": 6312,
+            "y": -12
+          }
+        },
+        "886ae580-991a-4093-9b79-f497d525ed1c": {
+          "id": "886ae580-991a-4093-9b79-f497d525ed1c",
+          "name": "Landegeste?",
+          "title": "Landegeste Corehelper?",
+          "description": "april_gesture_hold_condition",
+          "properties": {},
+          "display": {
+            "x": 6948,
+            "y": 240
+          }
+        },
+        "4dfb0acc-360e-410b-8d1d-d0205822a885": {
+          "id": "4dfb0acc-360e-410b-8d1d-d0205822a885",
+          "name": "Priority",
+          "title": "april_gesture_sub_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 7152,
+            "y": 60
+          },
+          "children": [
+            "886ae580-991a-4093-9b79-f497d525ed1c",
+            "161d8788-2402-41b1-811b-a034e659d693"
+          ]
+        },
+        "44249000-2e3b-46cc-ba60-589caf006bfd": {
+          "id": "44249000-2e3b-46cc-ba60-589caf006bfd",
+          "name": "Priority",
+          "title": "april_gesture_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 6828,
+            "y": -120
+          },
+          "children": [
+            "9c8010c0-3977-4354-965a-be70d684cada",
+            "4dfb0acc-360e-410b-8d1d-d0205822a885"
+          ]
+        },
+        "487b2914-b806-4052-848d-952765e1135c": {
+          "id": "487b2914-b806-4052-848d-952765e1135c",
+          "name": "Priority",
+          "title": "april_tag_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 7320,
+            "y": -120
+          },
+          "children": [
+            "d60c0177-36d1-400a-81e2-cd8d8a1ffdd8",
+            "56948e52-7f13-47e5-89c4-04f573ff8ef0"
+          ]
+        },
+        "56948e52-7f13-47e5-89c4-04f573ff8ef0": {
+          "id": "56948e52-7f13-47e5-89c4-04f573ff8ef0",
+          "name": "Apriltag erkannt",
+          "title": "Apriltag erkannt",
+          "description": "april_tag_condition",
+          "properties": {},
+          "display": {
+            "x": 7932,
+            "y": 12
+          }
+        },
+        "04d4b820-8521-4a8f-bd6f-5d25f669e5b1": {
+          "id": "04d4b820-8521-4a8f-bd6f-5d25f669e5b1",
+          "name": "Apriltag suchen",
+          "title": "Apriltag suchen",
+          "description": "april_tag_action",
+          "properties": {},
+          "display": {
+            "x": 8424,
+            "y": 72
+          }
+        },
+        "f403a3d7-7acd-43d3-8ff4-44243176897d": {
+          "id": "f403a3d7-7acd-43d3-8ff4-44243176897d",
+          "name": "Sequence",
+          "title": "april_sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 7068,
+            "y": -276
+          },
+          "children": [
+            "487b2914-b806-4052-848d-952765e1135c",
+            "44249000-2e3b-46cc-ba60-589caf006bfd",
+            "61d119aa-9e6d-4575-8375-55fc5a7ba37c",
+            "cb5909a9-371f-4e63-8979-502557d10051"
+          ]
+        },
+        "1fc00f50-3e12-4a95-98f5-7184ff0e16ca": {
+          "id": "1fc00f50-3e12-4a95-98f5-7184ff0e16ca",
+          "name": "Landung Apriltag",
+          "title": "Landung Apriltag",
+          "description": "april_landing_action",
+          "properties": {},
+          "display": {
+            "x": 9072,
+            "y": 12
+          }
+        },
+        "c544ad47-6e4e-41de-832e-6a00ae83e475": {
+          "id": "c544ad47-6e4e-41de-832e-6a00ae83e475",
+          "name": "Kamera aktivieren",
+          "title": "Kamera aktivieren",
+          "description": "april_tag_cam_action",
+          "properties": {},
+          "display": {
+            "x": 8292,
+            "y": 192
+          }
+        },
+        "1eb698ab-29b7-4881-a27e-5184efb3e2f0": {
+          "id": "1eb698ab-29b7-4881-a27e-5184efb3e2f0",
+          "name": "Kamera aktiv?",
+          "title": "Kamera aktiv?",
+          "description": "april_tag_cam_condition",
+          "properties": {},
+          "display": {
+            "x": 8076,
+            "y": 180
+          }
+        },
+        "a8f3cbfe-d081-45dd-8602-85839c92469f": {
+          "id": "a8f3cbfe-d081-45dd-8602-85839c92469f",
+          "name": "Priority",
+          "title": "april_tag_cam_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 8076,
+            "y": 84
+          },
+          "children": [
+            "1eb698ab-29b7-4881-a27e-5184efb3e2f0",
+            "c544ad47-6e4e-41de-832e-6a00ae83e475"
+          ]
+        },
+        "d60c0177-36d1-400a-81e2-cd8d8a1ffdd8": {
+          "id": "d60c0177-36d1-400a-81e2-cd8d8a1ffdd8",
+          "name": "Sequence",
+          "title": "april_tag_sub_sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 8076,
+            "y": -12
+          },
+          "children": [
+            "04d4b820-8521-4a8f-bd6f-5d25f669e5b1",
+            "a8f3cbfe-d081-45dd-8602-85839c92469f"
+          ]
+        },
+        "08052d8c-9627-480c-8822-e22221eb1ed1": {
+          "id": "08052d8c-9627-480c-8822-e22221eb1ed1",
+          "name": "Zielhöhe Gestenerkennung erreicht?",
+          "title": "Zielhöhe Apriltag erreicht?",
+          "description": "april_height_condition",
+          "properties": {},
+          "display": {
+            "x": 7380,
+            "y": 36
+          }
+        },
+        "cb5909a9-371f-4e63-8979-502557d10051": {
+          "id": "cb5909a9-371f-4e63-8979-502557d10051",
+          "name": "Priority",
+          "title": "april_height_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 7296,
+            "y": -48
+          },
+          "children": [
+            "08052d8c-9627-480c-8822-e22221eb1ed1",
+            "df2437d0-6fc0-4894-8f2a-03e5b907e2d5"
+          ]
+        },
+        "df2437d0-6fc0-4894-8f2a-03e5b907e2d5": {
+          "id": "df2437d0-6fc0-4894-8f2a-03e5b907e2d5",
+          "name": "Höhe reduzieren",
+          "title": "Höhe reduzieren",
+          "description": "april_height_action",
+          "properties": {},
+          "display": {
+            "x": 7620,
+            "y": 36
+          }
+        },
+        "78e1021c-5828-4ed6-adc2-4d23475794bc": {
+          "id": "78e1021c-5828-4ed6-adc2-4d23475794bc",
+          "name": "Gelandet?",
+          "title": "Gelandet (Apriltag)?",
+          "description": "april_landing_condition",
+          "properties": {},
+          "display": {
+            "x": 8796,
+            "y": 12
+          }
+        },
+        "61d119aa-9e6d-4575-8375-55fc5a7ba37c": {
+          "id": "61d119aa-9e6d-4575-8375-55fc5a7ba37c",
+          "name": "Priority",
+          "title": "april_landing_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 8652,
+            "y": -84
+          },
+          "children": [
+            "78e1021c-5828-4ed6-adc2-4d23475794bc",
+            "1fc00f50-3e12-4a95-98f5-7184ff0e16ca"
+          ]
+        },
+        "afc1aed8-0f49-4a19-8880-9bc98322fbe2": {
+          "id": "afc1aed8-0f49-4a19-8880-9bc98322fbe2",
+          "name": "Sequence",
+          "title": "start_sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -1344,
+            "y": -336
+          },
+          "children": [
+            "f43edc41-c4da-44af-8d64-f0931bab9ffb",
+            "ec359fbc-f012-4663-8b1d-fc46a4abcb51"
+          ]
+        },
+        "f43edc41-c4da-44af-8d64-f0931bab9ffb": {
+          "id": "f43edc41-c4da-44af-8d64-f0931bab9ffb",
+          "name": "Priority",
+          "title": "start_startup_selector",
+          "description": "Make sure starting sequence is completed",
+          "properties": {},
+          "display": {
+            "x": -1476,
+            "y": -180
+          },
+          "children": [
+            "7ad5c38b-f807-46a5-9335-46fe36da0a9e",
+            "4267e76f-0155-4e57-881c-0b51adb4c0b3"
+          ]
+        },
+        "ec359fbc-f012-4663-8b1d-fc46a4abcb51": {
+          "id": "ec359fbc-f012-4663-8b1d-fc46a4abcb51",
+          "name": "WPM ladem",
+          "title": "WPM ausführen",
+          "description": "start_wpm_action",
+          "properties": {},
+          "display": {
+            "x": -1188,
+            "y": -180
+          }
+        },
+        "f4a89236-b8fc-4cb4-a654-8b267a7cb968": {
+          "id": "f4a89236-b8fc-4cb4-a654-8b267a7cb968",
+          "name": "Sequence",
+          "title": "landing_check_selector",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 264,
+            "y": -276
+          },
+          "children": [
+            "35237a54-e158-4c14-8eb7-6fae685e361f",
+            "1915e965-b6b8-4d14-83c5-af6634b94d13"
+          ]
+        },
+        "1915e965-b6b8-4d14-83c5-af6634b94d13": {
+          "id": "1915e965-b6b8-4d14-83c5-af6634b94d13",
+          "name": "Batteriestatus okay",
+          "title": "Batterie okay?",
+          "description": "landing_battery_condition",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -216
+          }
+        }
+      },
+      "display": {
+        "camera_x": -4945,
+        "camera_y": 770.5,
+        "camera_z": 0.75,
+        "x": 2808,
+        "y": -1848
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "tree",
+      "id": "0338b870-f4fd-4010-84b8-c5a1a152bfad",
+      "title": "Flugmission",
+      "description": "",
+      "root": "e77ed4ad-cb3c-47b0-b567-6c10f5ec9682",
+      "properties": {},
+      "nodes": {
+        "faa757bb-4cf0-4c78-931b-5c9aa62656ea": {
+          "id": "faa757bb-4cf0-4c78-931b-5c9aa62656ea",
+          "name": "Drohne okay?",
+          "title": "Drohne okay?",
+          "description": "Zustand der Drohne fehlerfrei (DJI System gibt keine Errors aus), Batterizustand ausreichend für volle Mission",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -1644
+          }
+        },
+        "5a73c39a-b44b-459b-8c4d-e624a1f51986": {
+          "id": "5a73c39a-b44b-459b-8c4d-e624a1f51986",
+          "name": "Flugumgebung okay",
+          "title": "Flugumgebung okay",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -852
+          }
+        },
+        "e2cee795-6d77-4f4e-8de8-4059996847a2": {
+          "id": "e2cee795-6d77-4f4e-8de8-4059996847a2",
+          "name": "Wetter okay",
+          "title": "Wetter okay",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -672
+          }
+        },
+        "1c5c9e7f-245b-4f7d-8d8a-d12ff8edac41": {
+          "id": "1c5c9e7f-245b-4f7d-8d8a-d12ff8edac41",
+          "name": "Ziel erreicht",
+          "title": "Ziel erreicht",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -144
+          }
+        },
+        "bb50ce5e-ceb5-4f3a-8c76-fc947d4d2b84": {
+          "id": "bb50ce5e-ceb5-4f3a-8c76-fc947d4d2b84",
+          "name": "Priority",
+          "title": "Priority",
+          "description": "Make sure drone is okay",
+          "properties": {},
+          "display": {
+            "x": -36,
+            "y": -1512
+          },
+          "children": [
+            "faa757bb-4cf0-4c78-931b-5c9aa62656ea",
+            "0d91a5c3-fafd-4fe8-845a-8f5c4d6134cc",
+            "904078d2-4f07-4004-89f3-8a8bfde01878"
+          ]
+        },
+        "d98251fc-ea82-4af3-860d-d858af40caee": {
+          "id": "d98251fc-ea82-4af3-860d-d858af40caee",
+          "name": "HotPoint erreichbar",
+          "title": "HotPoint erreichbar",
+          "description": "Nächster HotPoint ist mit Fehlermeldung noch erreichbar (genau zu definieren welche Fehler auftreten können und welche Funktionen noch bestehen)",
+          "properties": {},
+          "display": {
+            "x": 384,
+            "y": -1560
+          }
+        },
+        "904078d2-4f07-4004-89f3-8a8bfde01878": {
+          "id": "904078d2-4f07-4004-89f3-8a8bfde01878",
+          "name": "Fallschirm Landung",
+          "title": "Fallschirm Landung",
+          "description": "Fallschirm auslösen, Motoren abschalten und Meldung an Nutzer/Edge senden",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -1380
+          }
+        },
+        "0d91a5c3-fafd-4fe8-845a-8f5c4d6134cc": {
+          "id": "0d91a5c3-fafd-4fe8-845a-8f5c4d6134cc",
+          "name": "Sequence",
+          "title": "Sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -1512
+          },
+          "children": [
+            "d98251fc-ea82-4af3-860d-d858af40caee",
+            "8df324b6-385c-41b7-b9b1-bca713339573"
+          ]
+        },
+        "8df324b6-385c-41b7-b9b1-bca713339573": {
+          "id": "8df324b6-385c-41b7-b9b1-bca713339573",
+          "name": "HotPoint Landing",
+          "title": "Hotpoint Landing",
+          "description": "Landung auf HotPoint, ausschalten der Motoren, Senden einer Landebestätigung an Nutzer",
+          "properties": {},
+          "display": {
+            "x": 384,
+            "y": -1464
+          }
+        },
+        "7dde6890-ac9c-4d0f-80f0-a75e8d5aecea": {
+          "id": "7dde6890-ac9c-4d0f-80f0-a75e8d5aecea",
+          "name": "Batteriestatus okay",
+          "title": "Batteriestatus okay",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -1296
+          }
+        },
+        "1f97649d-0aba-4031-8737-04c2b91aac8d": {
+          "id": "1f97649d-0aba-4031-8737-04c2b91aac8d",
+          "name": "Priority",
+          "title": "Priority",
+          "description": "Make sure battery is okay",
+          "properties": {},
+          "display": {
+            "x": -36,
+            "y": -1128
+          },
+          "children": [
+            "7dde6890-ac9c-4d0f-80f0-a75e8d5aecea",
+            "6ba3a8af-2ee0-4a2f-84be-57facfbbb9b5",
+            "392eb7e1-4eef-4ae8-ac63-62a09ef24830",
+            "b0f3e1b1-2f23-442b-a681-78b8e03b7d2a"
+          ]
+        },
+        "afc749bb-7bec-49cf-82b2-3b24f0fbc264": {
+          "id": "afc749bb-7bec-49cf-82b2-3b24f0fbc264",
+          "name": "HotPoint erreichbar",
+          "title": "HotPoint erreichbar",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 384,
+            "y": -1116
+          }
+        },
+        "392eb7e1-4eef-4ae8-ac63-62a09ef24830": {
+          "id": "392eb7e1-4eef-4ae8-ac63-62a09ef24830",
+          "name": "Sequence",
+          "title": "Sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -1068
+          },
+          "children": [
+            "afc749bb-7bec-49cf-82b2-3b24f0fbc264",
+            "8ef0e632-22c7-4a62-bcc3-977fcc4ae38f"
+          ]
+        },
+        "6ba3a8af-2ee0-4a2f-84be-57facfbbb9b5": {
+          "id": "6ba3a8af-2ee0-4a2f-84be-57facfbbb9b5",
+          "name": "RTH möglich",
+          "title": "RTH möglich",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -1200
+          }
+        },
+        "8ef0e632-22c7-4a62-bcc3-977fcc4ae38f": {
+          "id": "8ef0e632-22c7-4a62-bcc3-977fcc4ae38f",
+          "name": "HotPoint Landing",
+          "title": "Hotpoint Landing",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 384,
+            "y": -1032
+          }
+        },
+        "b0f3e1b1-2f23-442b-a681-78b8e03b7d2a": {
+          "id": "b0f3e1b1-2f23-442b-a681-78b8e03b7d2a",
+          "name": "Fallschirm Landung",
+          "title": "Fallschirm Landung",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -936
+          }
+        },
+        "e77ed4ad-cb3c-47b0-b567-6c10f5ec9682": {
+          "id": "e77ed4ad-cb3c-47b0-b567-6c10f5ec9682",
+          "name": "Sequence",
+          "title": "Sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -240,
+            "y": -732
+          },
+          "children": [
+            "bb50ce5e-ceb5-4f3a-8c76-fc947d4d2b84",
+            "1f97649d-0aba-4031-8737-04c2b91aac8d",
+            "38c4e997-24ad-4220-84a3-41092fb8c773",
+            "41c2a1ab-5446-41c7-84e4-43f27466f046",
+            "387759a4-0267-4e00-9de1-9298e1e7086a",
+            "a16e09ce-d939-4008-8ce6-9c5ad98e5ead"
+          ]
+        },
+        "38c4e997-24ad-4220-84a3-41092fb8c773": {
+          "id": "38c4e997-24ad-4220-84a3-41092fb8c773",
+          "name": "Priority",
+          "title": "Priority",
+          "description": "Make sure fly zone is okay",
+          "properties": {},
+          "display": {
+            "x": -36,
+            "y": -804
+          },
+          "children": [
+            "5a73c39a-b44b-459b-8c4d-e624a1f51986",
+            "24069c05-0433-4b5d-8524-603c4c836b0c"
+          ]
+        },
+        "24069c05-0433-4b5d-8524-603c4c836b0c": {
+          "id": "24069c05-0433-4b5d-8524-603c4c836b0c",
+          "name": "HotPoint Landing",
+          "title": "Hotpoint Landing",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -768
+          }
+        },
+        "41c2a1ab-5446-41c7-84e4-43f27466f046": {
+          "id": "41c2a1ab-5446-41c7-84e4-43f27466f046",
+          "name": "Priority",
+          "title": "Priority",
+          "description": "Make sure weather is okay",
+          "properties": {},
+          "display": {
+            "x": -36,
+            "y": -588
+          },
+          "children": [
+            "e2cee795-6d77-4f4e-8de8-4059996847a2",
+            "ac554bb6-4136-42cd-accc-686264be6cdb"
+          ]
+        },
+        "ac554bb6-4136-42cd-accc-686264be6cdb": {
+          "id": "ac554bb6-4136-42cd-accc-686264be6cdb",
+          "name": "Sequence",
+          "title": "Sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -504
+          },
+          "children": [
+            "454962cb-f2c2-4600-964b-8b6a29b37430",
+            "7cdf4d89-49f0-44f3-9424-b3831a576b39",
+            "04b5361a-868c-4ffc-a670-2735fc7bf3cf"
+          ]
+        },
+        "454962cb-f2c2-4600-964b-8b6a29b37430": {
+          "id": "454962cb-f2c2-4600-964b-8b6a29b37430",
+          "name": "HotPoint erreichbar",
+          "title": "HotPoint erreichbar",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 384,
+            "y": -588
+          }
+        },
+        "7cdf4d89-49f0-44f3-9424-b3831a576b39": {
+          "id": "7cdf4d89-49f0-44f3-9424-b3831a576b39",
+          "name": "HotPoint Landing",
+          "title": "Hotpoint Landing",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 384,
+            "y": -504
+          }
+        },
+        "04b5361a-868c-4ffc-a670-2735fc7bf3cf": {
+          "id": "04b5361a-868c-4ffc-a670-2735fc7bf3cf",
+          "name": "Fallschirm Landung",
+          "title": "Fallschirm Landung",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 384,
+            "y": -408
+          }
+        },
+        "31e6522a-84fa-4a11-896c-2731bdf16aaf": {
+          "id": "31e6522a-84fa-4a11-896c-2731bdf16aaf",
+          "name": "Keine Kollision",
+          "title": "Keine Kollision",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -324
+          }
+        },
+        "387759a4-0267-4e00-9de1-9298e1e7086a": {
+          "id": "387759a4-0267-4e00-9de1-9298e1e7086a",
+          "name": "Priority",
+          "title": "Priority",
+          "description": "Make sure no collisions on WP",
+          "properties": {},
+          "display": {
+            "x": -36,
+            "y": -276
+          },
+          "children": [
+            "31e6522a-84fa-4a11-896c-2731bdf16aaf",
+            "d0accc45-097f-47cd-8851-eb50f51dfe52"
+          ]
+        },
+        "d0accc45-097f-47cd-8851-eb50f51dfe52": {
+          "id": "d0accc45-097f-47cd-8851-eb50f51dfe52",
+          "name": "Hindernis umfliegen",
+          "title": "Hindernis umfliegen",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -240
+          }
+        },
+        "f81cada4-c02f-49bb-8c46-2817f73fae3b": {
+          "id": "f81cada4-c02f-49bb-8c46-2817f73fae3b",
+          "name": "Zum Ziel fliegen",
+          "title": "Zum Ziel fliegen",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 180,
+            "y": -60
+          }
+        },
+        "a16e09ce-d939-4008-8ce6-9c5ad98e5ead": {
+          "id": "a16e09ce-d939-4008-8ce6-9c5ad98e5ead",
+          "name": "Priority",
+          "title": "Priority",
+          "description": "Make sure WPM is conducted",
+          "properties": {},
+          "display": {
+            "x": -36,
+            "y": -108
+          },
+          "children": [
+            "1c5c9e7f-245b-4f7d-8d8a-d12ff8edac41",
+            "f81cada4-c02f-49bb-8c46-2817f73fae3b"
+          ]
+        }
+      },
+      "display": {
+        "camera_x": 556,
+        "camera_y": 924,
+        "camera_z": 0.5,
+        "x": -444,
+        "y": -732
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "tree",
+      "id": "3dfe46ce-1698-4704-9f10-dc8eead70b83",
+      "title": "Main Goals",
+      "description": "",
+      "root": "1f95320a-43c3-4af6-8325-c9673fa42037",
+      "properties": {},
+      "nodes": {
+        "1f95320a-43c3-4af6-8325-c9673fa42037": {
+          "id": "1f95320a-43c3-4af6-8325-c9673fa42037",
+          "name": "Sequence",
+          "title": "Sequence",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 336,
+            "y": -228
+          },
+          "children": [
+            "c787537e-fcc6-4529-86c1-c63c4b285294",
+            "41ebb5f4-af61-48b3-be35-3d171333b688",
+            "84933c86-d053-4566-81c7-e183b3293559"
+          ]
+        },
+        "9d498daf-65f4-4d59-8032-11bb830d711c": {
+          "id": "9d498daf-65f4-4d59-8032-11bb830d711c",
+          "name": "Alle Systeme funktionieren",
+          "title": "Alle Systeme funktionieren",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -504,
+            "y": 0
+          }
+        },
+        "f188499f-791b-45ac-824c-33cefd154910": {
+          "id": "f188499f-791b-45ac-824c-33cefd154910",
+          "name": "Missionsdaten vorhanden",
+          "title": "Missiondatenvorhanden",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -240,
+            "y": 0
+          }
+        },
+        "13c8f3cf-9ebc-4642-9bec-8350678ef0d1": {
+          "id": "13c8f3cf-9ebc-4642-9bec-8350678ef0d1",
+          "name": "Flugbedingungen gut",
+          "title": "Flugbedingungen gut",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "c787537e-fcc6-4529-86c1-c63c4b285294": {
+          "id": "c787537e-fcc6-4529-86c1-c63c4b285294",
+          "name": "RFTO",
+          "title": "RFTO",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -240,
+            "y": -84
+          }
+        },
+        "c152112d-a744-4ffd-8dab-c53ca17164f3": {
+          "id": "c152112d-a744-4ffd-8dab-c53ca17164f3",
+          "name": "Batteriestatus okay",
+          "title": "Batteriestatus okay",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 276,
+            "y": -12
+          }
+        },
+        "55021940-d1dd-4ad0-883b-76f1ff9aac70": {
+          "id": "55021940-d1dd-4ad0-883b-76f1ff9aac70",
+          "name": "Keine Kollision",
+          "title": "Keine Kollision",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 480,
+            "y": -12
+          }
+        },
+        "cb24a3ee-e5d9-40da-84d9-b40c3f1ec7e6": {
+          "id": "cb24a3ee-e5d9-40da-84d9-b40c3f1ec7e6",
+          "name": "Letzter Waypoint erreicht?",
+          "title": "Letzter WP erreicht?",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 900,
+            "y": -12
+          }
+        },
+        "8c1926e5-7252-4e09-ae31-ca65365b839b": {
+          "id": "8c1926e5-7252-4e09-ae31-ca65365b839b",
+          "name": "Flugbedingungen gut",
+          "title": "Flugbedingungen gut",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 684,
+            "y": -12
+          }
+        },
+        "41ebb5f4-af61-48b3-be35-3d171333b688": {
+          "id": "41ebb5f4-af61-48b3-be35-3d171333b688",
+          "name": "Ziel erreicht",
+          "title": "Ziel erreicht",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 564,
+            "y": -84
+          }
+        },
+        "84933c86-d053-4566-81c7-e183b3293559": {
+          "id": "84933c86-d053-4566-81c7-e183b3293559",
+          "name": "Gelandet?",
+          "title": "Gelandet (Apriltag)?",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 1356,
+            "y": -84
+          }
+        },
+        "7d39a70a-d7c9-46c1-91f2-e27eae5b845e": {
+          "id": "7d39a70a-d7c9-46c1-91f2-e27eae5b845e",
+          "name": "Alle Systeme funktionieren",
+          "title": "Alle Systeme funktionieren",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 1224,
+            "y": -12
+          }
+        },
+        "c3ec0010-4b93-42ab-806a-3bef82b21ff3": {
+          "id": "c3ec0010-4b93-42ab-806a-3bef82b21ff3",
+          "name": "Gestenerkennung aktiv",
+          "title": "Gestenerkennung aktiv",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 1176,
+            "y": 48
+          }
+        },
+        "4bc208f8-a3cf-4efa-8606-ec82ffd56b74": {
+          "id": "4bc208f8-a3cf-4efa-8606-ec82ffd56b74",
+          "name": "Lidar aktiv?",
+          "title": "Lidar aktiv",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 1368,
+            "y": 48
+          }
+        },
+        "071b6ec2-0b9e-4d7d-ab87-ba228d17b17d": {
+          "id": "071b6ec2-0b9e-4d7d-ab87-ba228d17b17d",
+          "name": "Landeplatz frei?",
+          "title": "Landeplatz frei?",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 1536,
+            "y": -12
+          }
+        }
+      },
+      "display": {
+        "camera_x": 730,
+        "camera_y": 548,
+        "camera_z": 0.5,
+        "x": -276,
+        "y": -300
+      }
+    }
+  ],
+  "custom_nodes": [
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Drohne okay?",
+      "category": "condition",
+      "title": "Drohne okay?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Keine Kollision",
+      "category": "condition",
+      "title": "Keine Kollision",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Flugumgebung okay",
+      "category": "condition",
+      "title": "Flugumgebung okay",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Wetter okay",
+      "category": "condition",
+      "title": "Wetter okay",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Ziel erreicht",
+      "category": "condition",
+      "title": "Ziel erreicht",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "HotPoint Landing",
+      "category": "action",
+      "title": "Hotpoint Landing",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "HotPoint erreichbar",
+      "category": "condition",
+      "title": "HotPoint erreichbar",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Fallschirm Landung",
+      "category": "action",
+      "title": "Fallschirm Landung",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Batteriestatus okay",
+      "category": "condition",
+      "title": "Batteriestatus okay",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "RTH möglich",
+      "category": "condition",
+      "title": "RTH möglich",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Hindernis umfliegen",
+      "category": "action",
+      "title": "Hindernis umfliegen",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Zum Ziel fliegen",
+      "category": "action",
+      "title": "Zum Ziel fliegen",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Control realocation",
+      "category": "action",
+      "title": "Control realocation",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Flugverbotszone verlassen",
+      "category": "action",
+      "title": "Flugverbotszone verlassen?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "RTH",
+      "category": "action",
+      "title": "RTH",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "RTH erreichbar",
+      "category": "condition",
+      "title": "RTH erreichbar",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "HPL möglich",
+      "category": "condition",
+      "title": "HPL möglich",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Startsequenz abgeschlossen?",
+      "category": "condition",
+      "title": "Startsequenz abgeschlossen?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Letzter Waypoint erreicht?",
+      "category": "condition",
+      "title": "Letzter WP erreicht?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Systemcheck erfolgreich?",
+      "category": "condition",
+      "title": "Systemcheck erfolgreich?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Systemcheck durchführen",
+      "category": "action",
+      "title": "Systemcheck durchführen",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Mit Edge verbunden",
+      "category": "condition",
+      "title": "Mit EDGE verbunden",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Mit EDGE verbinden",
+      "category": "action",
+      "title": "Mit EDGE verbinden",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "WPM geladen",
+      "category": "condition",
+      "title": "WPM geladen?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "WPM ladem",
+      "category": "action",
+      "title": "WPM laden",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Zum letzten WP fliegen",
+      "category": "action",
+      "title": "Zum letzten WP fliegen",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Landeplatz frei?",
+      "category": "condition",
+      "title": "Landeplatz frei?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Lidar aktiv?",
+      "category": "condition",
+      "title": "Lidar aktiv",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Lidar verbinden",
+      "category": "action",
+      "title": "Lidar verbinden",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "LIDAR scan durchführen",
+      "category": "action",
+      "title": "LIDAR scan durchführen",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "LIDAR Aufnahme erfolgreich?",
+      "category": "condition",
+      "title": "LIDAR Aufnahme erfolgreich?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Höhe reduzieren",
+      "category": "action",
+      "title": "Höhe reduzieren",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Zielhöhe Gestenerkennung erreicht?",
+      "category": "condition",
+      "title": "Zielhöhe Gestenerkennung erreicht?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Keine Abbruchgeste erkannt",
+      "category": "condition",
+      "title": "Keine Abbruchgeste erkannt",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Gestenerkennung aktivieren",
+      "category": "action",
+      "title": "Gestenerkennung aktivieren",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Hold",
+      "category": "action",
+      "title": "Hold",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Gestenerkennung aktiv",
+      "category": "condition",
+      "title": "Gestenerkennung aktiv",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Landegeste",
+      "category": "composite",
+      "title": "Landegeste Corehelper?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Landegeste?",
+      "category": "condition",
+      "title": "Landegeste Corehelper?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Apriltag erkannt",
+      "category": "condition",
+      "title": "Apriltag erkannt",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Kamera aktivieren",
+      "category": "action",
+      "title": "Kamera aktivieren",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Apriltag suchen",
+      "category": "action",
+      "title": "Apriltag suchen",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Landung Apriltag",
+      "category": "action",
+      "title": "Landung Apriltag",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Kamera aktiv?",
+      "category": "condition",
+      "title": "Kamera aktiv?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Gelandet?",
+      "category": "condition",
+      "title": "Gelandet (Apriltag)?",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Alle Systeme funktionieren",
+      "category": "condition",
+      "title": "Alle Systeme funktionieren",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Missionsdaten vorhanden",
+      "category": "condition",
+      "title": "Missiondatenvorhanden",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "Flugbedingungen gut",
+      "category": "condition",
+      "title": "Flugbedingungen gut",
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "RFTO",
+      "category": "condition",
+      "title": "RFTO",
+      "description": null,
+      "properties": {}
+    }
+  ]
+}

@@ -35,6 +35,9 @@ setup(
             'gui_pub = test_bt_pkg.gui_pub:main',
             'gui_pub2 = test_bt_pkg.gui_pub2:main',
             'gui_pub3 = test_bt_pkg.gui_pub3:main',
+            'bb_publisher = test_bt_pkg.bb_publisher:main',
+            'bb_publisher_gui = test_bt_pkg.bb_publisher_gui:main',
+            'main_tree = test_bt_pkg.main_tree:main',
         ],
     },
 )
