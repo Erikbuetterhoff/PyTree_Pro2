@@ -33,6 +33,8 @@ setup(
             'wait_action_server = test_bt_pkg.wait_action_server:main',
             'empty_action_server = test_bt_pkg.empty_action_server:main',
             'gui_pub = test_bt_pkg.gui_pub:main',
+            'gui_pub2 = test_bt_pkg.gui_pub2:main',
+            'gui_pub3 = test_bt_pkg.gui_pub3:main',
         ],
     },
 )
