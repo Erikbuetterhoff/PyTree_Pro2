@@ -6,18 +6,20 @@ import py_trees_ros.trees
 import sys
 import py_trees.console as console
 import subtrees_full
-import subtrees_full.subtree_april
-import subtrees_full.subtree_gesture
-import subtrees_full.subtree_collision
-import subtrees_full.subtree_landing
-import subtrees_full.subtree_lidar
 import subtrees_full.subtree_start
-import subtrees_full.subtree_waypoint
+import subtrees_full.subtree_landing
 import subtrees_full.subtree_zone
+import subtrees_full.subtree_collision
+import subtrees_full.subtree_waypoint
+import subtrees_full.subtree_lidar
+import subtrees_full.subtree_gesture
+import subtrees_full.subtree_april
 
 
 
 def create_main_root() -> py_trees.behaviour.Behaviour:
+
+    root = py_trees.composites.Selector("ROOT-Selector",memory=False)
     
     subtree_start = subtrees_full.subtree_start.subtree_start()
     subtree_landing = subtrees_full.subtree_landing.subtree_landing()
@@ -28,9 +30,11 @@ def create_main_root() -> py_trees.behaviour.Behaviour:
     subtree_gesture = subtrees_full.subtree_gesture.subtree_gesture()
     subtree_april = subtrees_full.subtree_april.subtree_april()
 
+    root.add_children([subtree_start,subtree_landing, subtree_zone,subtree_collision,subtree_waypoint,subtree_lidar,subtree_gesture,subtree_april])
 
 
-    return subtree_start
+
+    return root
 
 def main():
     rclpy.init()
