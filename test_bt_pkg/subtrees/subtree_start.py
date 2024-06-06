@@ -7,8 +7,15 @@ from std_msgs.msg import Bool
 
 import action_pkg.action as actions
 
+blackboard = py_trees.blackboard.Client(name="Client")
+blackboard.register_key(key="Systemcheck_erfolgreich", access=py_trees.common.Access.WRITE)
+blackboard.register_key(key="EDGE_verbunden", access=py_trees.common.Access.WRITE)
+blackboard.register_key(key="WPM_geladen", access=py_trees.common.Access.WRITE)
+blackboard.Systemcheck_erfolgreich = True
+blackboard.EDGE_verbunden = False
+blackboard.WPM_geladen = False
 
-def start_sequence(blackboard: py_trees.blackboard.Client) -> py_trees.behaviour.Behaviour:
+def start_sequence() -> py_trees.behaviour.Behaviour:     #blackboard: py_trees.blackboard.Client
     root = py_trees.composites.Sequence(name="Start Sequenz")
 
     start_startup_selector = py_trees.composites.Selector("Start überprüfen")
