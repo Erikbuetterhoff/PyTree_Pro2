@@ -10,12 +10,10 @@ import action_pkg.action as actions
 
 def start_sequence() -> py_trees.behaviour.Behaviour:
     blackboard = py_trees.blackboard.Client(name="Client")
-    blackboard.register_key(key="Systemcheck_erfolgreich", access=py_trees.common.Access.WRITE)
-    blackboard.register_key(key="EDGE_verbunden", access=py_trees.common.Access.WRITE)
-    blackboard.register_key(key="WPM_geladen", access=py_trees.common.Access.WRITE)
-    # Set initial value for Systemcheck_erfolgreich
-    blackboard.Systemcheck_erfolgreich = False  # Set to False initially
-
+    blackboard.register_key(key="Systemcheck_erfolgreich", access=py_trees.common.Access.READ)
+    blackboard.register_key(key="EDGE_verbunden", access=py_trees.common.Access.READ)
+    blackboard.register_key(key="WPM_geladen", access=py_trees.common.Access.READ)
+       
     root = py_trees.composites.Sequence(name="Start Sequenz")
 
     start_startup_selector = py_trees.composites.Selector("Start überprüfen")
@@ -32,7 +30,7 @@ def start_sequence() -> py_trees.behaviour.Behaviour:
 
     check_start_on_bb = py_trees.decorators.EternalGuard(
         name="Startsequenz abgeschlossen?",
-        condition=lambda: blackboard.Systemcheck_erfolgreich == True,
+        condition=lambda: blackboard.Systemcheck_erfolgreich,
         blackboard_keys={"Systemcheck_erfolgreich", "EDGE_verbunden", "WPM_geladen"}, 
         child=startsequenz
     )
@@ -45,10 +43,9 @@ def start_sequence() -> py_trees.behaviour.Behaviour:
         generate_feedback_message=lambda msg: actions.Wait.Feedback()
     )
 
-
     check_systemcheck_on_bb = py_trees.decorators.EternalGuard(
         name="Systemcheck erfolgreich?",
-        condition=lambda: blackboard.Systemcheck_erfolgreich == True,
+        condition=lambda: blackboard.Systemcheck_erfolgreich,
         blackboard_keys={"Systemcheck_erfolgreich"},
         child=systemcheck
     )
@@ -63,7 +60,7 @@ def start_sequence() -> py_trees.behaviour.Behaviour:
 
     check_EDGE_on_bb = py_trees.decorators.EternalGuard(
         name="Mit EDGE verbunden?",
-        condition=True, 
+        condition=lambda: blackboard.EDGE_verbunden,
         blackboard_keys={"EDGE_verbunden"},
         child=start_edge_action
     )
@@ -76,15 +73,13 @@ def start_sequence() -> py_trees.behaviour.Behaviour:
         generate_feedback_message=lambda msg: actions.Wait.Feedback()
     )
 
-
     check_WPM_on_bb = py_trees.decorators.EternalGuard(
         name="WPM geladen ?",
-        condition=True, 
+        condition=lambda: blackboard.WPM_geladen,
         blackboard_keys={"WPM_geladen"},
         child=start_wpmload_action
     )
 
-    
     root.add_children([check_start_on_bb, start_wpm_action])
     startsequenz.add_children([check_systemcheck_on_bb, check_EDGE_on_bb, check_WPM_on_bb])
 
