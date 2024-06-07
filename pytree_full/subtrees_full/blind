@@ -1,0 +1,31 @@
+
+Selector:::
+
+ = py_trees.composites.Selector("",memory=False)
+
+Sequence:::
+
+ = py_trees.composites.Sequence("",memory=False)
+
+Condition:::
+
+ = py_trees_ros.subscribers.CheckData(
+        name="", 
+        topic_name="", 
+        topic_type=Bool, 
+        variable_name="data", 
+        expected_value=True, 
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=2
+    )
+
+Action:::
+
+ = py_trees_ros.action_clients.FromConstant(  
+        name="",
+        action_type=actions.Wait,
+        action_name="wait_action",
+        action_goal=wait_goal,
+        generate_feedback_message=lambda msg: msg.feedback.part_result
+    )

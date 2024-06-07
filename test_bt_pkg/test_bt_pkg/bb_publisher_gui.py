@@ -1,5 +1,6 @@
 import tkinter as tk
 from py_trees.blackboard import Client as BlackboardClient
+import py_trees
 
 class BlackboardGui(tk.Tk):
     def __init__(self, blackboard):
@@ -40,12 +41,15 @@ class BlackboardGui(tk.Tk):
 def main():
     blackboard = BlackboardClient(name="Client")
     blackboard.register_key(key="Systemcheck_erfolgreich", access=py_trees.common.Access.WRITE)
-    blackboard.register_key(key="EDGE_verbunden", access=py_trees.common.Access.READ)
-    blackboard.register_key(key="WPM_geladen", access=py_trees.common.Access.READ)
+    blackboard.register_key(key="EDGE_verbunden", access=py_trees.common.Access.WRITE)
+    blackboard.register_key(key="WPM_geladen", access=py_trees.common.Access.WRITE)
+    blackboard.Systemcheck_erfolgreich = False
 
     # GUI erstellen und starten
     app = BlackboardGui(blackboard)
     app.mainloop()
+
+    print(blackboard)
 
 if __name__ == '__main__':
     main()

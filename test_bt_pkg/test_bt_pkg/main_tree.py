@@ -1,29 +1,40 @@
-#!/usr/bin/env python3
-
 import rclpy
 import py_trees
 import py_trees_ros.trees
 import sys
 import py_trees.console as console
 import subtrees
+import subtrees.data_gathering_test
 import subtrees.subtree1
 import subtrees.subtree_landing
 import subtrees.subtree_start
 
+# blackboard = py_trees.blackboard.Client(name="Client")
+# blackboard.register_key(key="Systemcheck_erfolgreich", access=py_trees.common.Access.WRITE)
+# blackboard.register_key(key="EDGE_verbunden", access=py_trees.common.Access.WRITE)
+# blackboard.register_key(key="WPM_geladen", access=py_trees.common.Access.WRITE)
+# blackboard.Systemcheck_erfolgreich = True
+# blackboard.EDGE_verbunden = False
+# blackboard.WPM_geladen = False
+
 
 def create_main_root() -> py_trees.behaviour.Behaviour:
     
-    subtree_landing = subtrees.subtree_landing.create_subtree_landing()
+    # subtree_landing = subtrees.subtree_landing.create_subtree_landing()
+    # subtree_start = subtrees.subtree_start.start_sequence(blackboard)
+
     subtree_start = subtrees.subtree_start.start_sequence()
+    root = subtrees.data_gathering_test.create_data_gatherer()
 
+    root.add_child(subtree_start)
+    
 
-
-    return subtree_start
+    return root
 
 def main():
     rclpy.init()
 
-    root =create_main_root()
+    root = create_main_root()   #(blackboard)?
     tree = py_trees_ros.trees.BehaviourTree(
         root=root,
         unicode_tree_debug=True
