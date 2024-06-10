@@ -49,7 +49,7 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         name="RTH aktivieren",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
     
@@ -69,7 +69,7 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         name="HPL aktivieren",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
     
@@ -77,7 +77,7 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         name="Fallschirm aktivieren",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 

@@ -25,7 +25,7 @@ def subtree_gesture() -> py_trees.behaviour.Behaviour:
         name="Höhe reduzieren",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -46,7 +46,7 @@ def subtree_gesture() -> py_trees.behaviour.Behaviour:
         name="Gestenerkennung aktivieren",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 

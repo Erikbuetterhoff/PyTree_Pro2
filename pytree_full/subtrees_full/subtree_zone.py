@@ -25,7 +25,7 @@ def subtree_zone() -> py_trees.behaviour.Behaviour:
         name="Flugverbotszone verlassen",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -33,7 +33,7 @@ def subtree_zone() -> py_trees.behaviour.Behaviour:
         name="Hotpoint Landing aktivieren",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -41,7 +41,7 @@ def subtree_zone() -> py_trees.behaviour.Behaviour:
         name="RTH aktivieren",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 

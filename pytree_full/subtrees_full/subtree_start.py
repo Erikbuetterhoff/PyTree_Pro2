@@ -40,7 +40,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         name="Systemcheck durchführen",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -61,7 +61,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         name="Mit EDGE verbinden",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -82,7 +82,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         name="WPM laden",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -90,7 +90,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         name="WPM ausführen",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 

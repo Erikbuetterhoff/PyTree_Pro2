@@ -38,7 +38,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         name="Höhe halten",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -59,7 +59,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         name="Höhe reduzieren",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -95,7 +95,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         name="Kamera aktivieren",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -103,7 +103,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         name="Apriltag suchen",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -124,7 +124,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         name="Landung Apriltag",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=wait_goal,
+        action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
