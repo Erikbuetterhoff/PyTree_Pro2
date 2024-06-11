@@ -5,6 +5,8 @@ from rclpy.node import Node
 from std_msgs.msg import Bool
 import tkinter as tk
 from tkinter import ttk
+import os
+from ament_index_python.packages import get_package_share_directory
 
 class BoolPublisherNode(Node):
     def __init__(self):
@@ -100,6 +102,11 @@ def main(args=None):
     root = tk.Tk()
     root.title("Bool Publisher")
     root.geometry("400x350")
+
+    pkg_share = get_package_share_directory("test_bt_pkg")
+    png_path = os.path.join(pkg_share, "config", "Malte_icon.png")
+    icon = tk.PhotoImage(file=png_path)
+    root.iconphoto(True, icon)
 
     app = BoolPublisherApp(root, node)
 
