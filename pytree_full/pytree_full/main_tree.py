@@ -19,7 +19,7 @@ import subtrees_full.subtree_april
 
 def create_main_root() -> py_trees.behaviour.Behaviour:
 
-    root = py_trees.composites.Selector("ROOT-Selector",memory=False)
+    root = py_trees.composites.Sequence("ROOT-Sequence",memory=False)
     
     subtree_start = subtrees_full.subtree_start.subtree_start()
     subtree_landing = subtrees_full.subtree_landing.subtree_landing()

@@ -10,6 +10,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
 
     start_startup_selector = py_trees.composites.Selector("Startsequenz prüfen",memory=False)
 
+
     start_startup_condition = py_trees_ros.subscribers.CheckData(
         name="Startsequenz abgeschlossen?", 
         topic_name="start_sequence_ok_topic", 
@@ -78,6 +79,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         clearing_policy=2
     )
 
+
     start_wpmload_action = py_trees_ros.action_clients.FromConstant(  
         name="WPM laden",
         action_type=actions.Wait,
@@ -94,7 +96,13 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
-    start_sequence.add_children([start_startup_selector,start_wpm_action])
+
+    running_succes_start = py_trees.decorators.RunningIsSuccess(    ## Namen richtig machen Malte
+        name = "Start_Running_to_success",
+        child = start_wpm_action
+        )
+
+    start_sequence.add_children([start_startup_selector, running_succes_start])     ## Namen richtig machen Malte
     start_startup_selector.add_children([start_startup_condition,start_sub_sequence])
     start_sub_sequence.add_children([start_check_selector,start_edge_selector,start_wpmload_selector])
     start_check_selector.add_children([start_systemcheck_condition,start_systemcheck_action])
