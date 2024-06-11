@@ -4,6 +4,8 @@ import py_trees.console
 from std_msgs.msg import Bool
 import action_pkg.action as actions
 
+policyvar = 3
+
 def subtree_zone() -> py_trees.behaviour.Behaviour:
 
     zone_selector = py_trees.composites.Selector("Flugumgebung Check",memory=False)
@@ -16,7 +18,7 @@ def subtree_zone() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     zone_sub_selector = py_trees.composites.Selector("",memory=False)

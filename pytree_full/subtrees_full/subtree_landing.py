@@ -4,6 +4,8 @@ import py_trees.console
 from std_msgs.msg import Bool
 import action_pkg.action as actions
 
+policyvar = 3
+
 def subtree_landing() -> py_trees.behaviour.Behaviour:
 
     landing_selector = py_trees.composites.Selector("Drohne okay oder landen?",memory=False)
@@ -18,7 +20,7 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
     landing_dronecheck_condition = py_trees_ros.subscribers.CheckData(
         name="Drohne okay?", 
@@ -28,10 +30,10 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
-    landing_sub_sequence = py_trees.composites.Sequence(name="Landung",memory=False)
+    landing_sub_selector = py_trees.composites.Selector(name="Landung",memory=False)
 
     landing_rth_sequence = py_trees.composites.Sequence(name="RTH Landung",memory=False)
     
@@ -43,7 +45,7 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         expected_value= True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
         )
     landing_rth_action = py_trees_ros.action_clients.FromConstant(  
         name="RTH aktivieren",
@@ -62,7 +64,7 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         expected_value= True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
         )
     
     landing_hpl_action = py_trees_ros.action_clients.FromConstant(  
@@ -81,9 +83,9 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
-    landing_selector.add_children([landing_check_sequence,landing_sub_sequence])
+    landing_selector.add_children([landing_check_sequence,landing_sub_selector])
     landing_check_sequence.add_children([landing_battery_condition,landing_dronecheck_condition])
-    landing_sub_sequence.add_children([landing_rth_sequence,landing_hpl_sequence,landing_para_action])
+    landing_sub_selector.add_children([landing_rth_sequence,landing_hpl_sequence,landing_para_action])
     landing_rth_sequence.add_children([landing_rth_condition,landing_rth_action])
     landing_hpl_sequence.add_children([landing_hpl_condition,landing_hpl_action])
 

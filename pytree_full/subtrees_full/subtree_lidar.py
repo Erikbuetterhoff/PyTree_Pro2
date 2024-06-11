@@ -4,6 +4,8 @@ import py_trees.console
 from std_msgs.msg import Bool
 import action_pkg.action as actions
 
+policyvar = 3
+
 def subtree_lidar() -> py_trees.behaviour.Behaviour:
 
     lidar_sequence = py_trees.composites.Sequence("LIDAR Check",memory=False)
@@ -18,7 +20,7 @@ def subtree_lidar() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
 
@@ -40,7 +42,7 @@ def subtree_lidar() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
 

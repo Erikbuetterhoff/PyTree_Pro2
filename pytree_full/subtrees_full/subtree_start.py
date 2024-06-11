@@ -4,6 +4,8 @@ import py_trees.console
 from std_msgs.msg import Bool
 import action_pkg.action as actions
 
+policyvar = 3
+
 def subtree_start() -> py_trees.behaviour.Behaviour:
 
     start_sequence = py_trees.composites.Sequence("Startsequenz einleiten",memory=False)
@@ -19,7 +21,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     start_sub_sequence = py_trees.composites.Sequence("Systemcheck, EDGE und WPM ready?",memory=False)
@@ -34,7 +36,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     start_systemcheck_action = py_trees_ros.action_clients.FromConstant(  
@@ -55,7 +57,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     start_edge_action = py_trees_ros.action_clients.FromConstant(  
@@ -76,7 +78,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
 

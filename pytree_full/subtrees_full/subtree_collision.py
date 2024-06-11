@@ -4,6 +4,8 @@ import py_trees.console
 from std_msgs.msg import Bool
 import action_pkg.action as actions
 
+policyvar = 3
+
 def subtree_collision() -> py_trees.behaviour.Behaviour:
 
     collision_selector = py_trees.composites.Selector("Kollisionscheck",memory=False)
@@ -16,7 +18,7 @@ def subtree_collision() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     collision_action = py_trees_ros.action_clients.FromConstant(  

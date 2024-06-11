@@ -4,6 +4,8 @@ import py_trees.console
 from std_msgs.msg import Bool
 import action_pkg.action as actions
 
+policyvar = 3
+
 def subtree_gesture() -> py_trees.behaviour.Behaviour:
 
     gesture_sequence = py_trees.composites.Sequence("Gestenerkennung",memory=False)
@@ -18,7 +20,7 @@ def subtree_gesture() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     gesture_height_action = py_trees_ros.action_clients.FromConstant(  
@@ -39,7 +41,7 @@ def subtree_gesture() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     gesture_active_action = py_trees_ros.action_clients.FromConstant(  

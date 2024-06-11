@@ -4,6 +4,8 @@ import py_trees.console
 from std_msgs.msg import Bool
 import action_pkg.action as actions
 
+policyvar = 3
+
 def subtree_april() -> py_trees.behaviour.Behaviour:
 
     april_sequence = py_trees.composites.Sequence("Apirltaglandung",memory=False)
@@ -18,7 +20,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     april_gesture_sub_selector = py_trees.composites.Selector("Landegeste Check",memory=False)
@@ -31,7 +33,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     april_gesture_hold_action = py_trees_ros.action_clients.FromConstant(  
@@ -52,7 +54,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     april_height_action = py_trees_ros.action_clients.FromConstant(  
@@ -73,7 +75,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     april_tag_sub_sequence = py_trees.composites.Sequence("Apriltag finden",memory=False)
@@ -88,7 +90,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     april_tag_cam_action = py_trees_ros.action_clients.FromConstant(  
@@ -117,7 +119,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=policyvar
     )
 
     april_landing_action = py_trees_ros.action_clients.FromConstant(  
