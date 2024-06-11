@@ -19,7 +19,7 @@ def tutorial_create_root() -> py_trees.behaviour.Behaviour:
         name="Return Home",
         action_type=actions.Wait,
         action_name="wait_action",
-        action_goal=actions.Wait.Goal(timer=5),
+        action_goal=actions.Wait.Goal(timer=15),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
@@ -31,11 +31,16 @@ def tutorial_create_root() -> py_trees.behaviour.Behaviour:
         expected_value=True, 
         fail_if_bad_comparison=True, 
         qos_profile=2, 
-        clearing_policy=2
+        clearing_policy=3
     )
 
+    running_succes_start = py_trees.decorators.RunningIsSuccess(    ## Namen richtig machen Malte
+        name = "Start_Running_to_success",
+        child = drone_not_ok
+        )
+
     root.add_child(drone_ok)
-    root.add_child(drone_not_ok)
+    root.add_child(running_succes_start)
 
     return root
 
