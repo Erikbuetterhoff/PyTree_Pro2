@@ -19,3 +19,7 @@ Now it should be working
 ```
 py-trees-tree-viewer
 ```
+# Installing psdk wrapper
+```
+sudo apt install ros-humble-psdk-wrapper ros-humble-psdk-interfaces
+```
