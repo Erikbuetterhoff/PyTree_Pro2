@@ -19,7 +19,7 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         topic_name="/wrapper/psdk_ros2/battery", 
         topic_type=sensor_msgs.msg.BatteryState, 
         variable_name="percentage", 
-        expected_value=0.3, 
+        expected_value=0.3,         # b 
         comparison_operator= operator.ge,
         fail_if_bad_comparison=True, 
         qos_profile=2, 
