@@ -1,0 +1,16 @@
+Links etc
+
+ros2 topic list -t # mit types die topics fragen
+	   echo 
+	   info
+	   
+	   
+	   
+infos über inhalt der topics:
+https://docs.ros.org/en/humble/p/psdk_interfaces/interfaces/msg/FileInfo.html
+https://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/BatteryState.html
+
+api's:
+https://docs.ros.org/en/kinetic/api/py_trees_ros/html/modules.html#module-py_trees_ros.subscribers
+https://umdlife.github.io/psdk_ros2/documentation/ThePSDKWrapper.html
+https://docs.python.org/2/library/operator.html
