@@ -10,25 +10,10 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
 
     start_sequence = py_trees.composites.Sequence("Startsequenz einleiten",memory=False)
 
-    start_startup_selector = py_trees.composites.Selector("Startsequenz prüfen",memory=False)
-
-
-    start_startup_condition = py_trees_ros.subscribers.CheckData(
-        name="Startsequenz abgeschlossen?", 
-        topic_name="start_sequence_ok_topic", 
-        topic_type=Bool, 
-        variable_name="data", 
-        expected_value=True, 
-        fail_if_bad_comparison=True, 
-        qos_profile=2, 
-        clearing_policy=policyvar
-    )
-
     start_sub_sequence = py_trees.composites.Sequence("Systemcheck, EDGE und WPM ready?",memory=False)
 
-    start_check_selector = py_trees.composites.Selector("Systemcheck",memory=False)
 
-    start_systemcheck_condition = py_trees_ros.subscribers.CheckData(
+    start_sub_battery = py_trees_ros.subscribers.CheckData(
         name="Systemcheck erfolgreich?", 
         topic_name="start_check_ok_topic", 
         topic_type=Bool, 
@@ -39,12 +24,37 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         clearing_policy=policyvar
     )
 
-    start_systemcheck_action = py_trees_ros.action_clients.FromConstant(  
-        name="Systemcheck durchführen",
-        action_type=actions.Wait,
-        action_name="wait_action",
-        action_goal=actions.Wait.Goal(timer=5),
-        generate_feedback_message=lambda msg: msg.feedback.part_result
+    start_sub_remote = py_trees_ros.subscribers.CheckData(
+        name="Systemcheck erfolgreich?", 
+        topic_name="start_check_ok_topic", 
+        topic_type=Bool, 
+        variable_name="data", 
+        expected_value=True, 
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=policyvar
+    )
+
+    start_sub_hpstatus = py_trees_ros.subscribers.CheckData(
+        name="Systemcheck erfolgreich?", 
+        topic_name="start_check_ok_topic", 
+        topic_type=Bool, 
+        variable_name="data", 
+        expected_value=True, 
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=policyvar
+    )
+
+    start_sub_hms = py_trees_ros.subscribers.CheckData(
+        name="Systemcheck erfolgreich?", 
+        topic_name="start_check_ok_topic", 
+        topic_type=Bool, 
+        variable_name="data", 
+        expected_value=True, 
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=policyvar
     )
 
     start_edge_selector = py_trees.composites.Selector("EDGE Verbindung",memory=False)
