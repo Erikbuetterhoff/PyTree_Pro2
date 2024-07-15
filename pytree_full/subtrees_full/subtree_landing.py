@@ -5,6 +5,7 @@ from std_msgs.msg import Bool
 import action_pkg.action as actions
 import operator
 import sensor_msgs.msg
+import psdk_interfaces.msg
 
 policyvar = 3
 
@@ -19,18 +20,19 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
         topic_name="/wrapper/psdk_ros2/battery", 
         topic_type=sensor_msgs.msg.BatteryState, 
         variable_name="percentage", 
-        expected_value=0.3,         # b 
+        expected_value=0.3,          
         comparison_operator= operator.ge,
         fail_if_bad_comparison=True, 
         qos_profile=2, 
         clearing_policy=policyvar
     )
     landing_dronecheck_condition = py_trees_ros.subscribers.CheckData(
-        name="Drohne okay?", 
-        topic_name="landing_drone_ok_topic", 
-        topic_type=Bool, 
-        variable_name="data", 
-        expected_value=True, 
+        name="HMS aktiv??", 
+        topic_name="/wrapper/psdk_ros2/hms_info_table", 
+        topic_type=psdk_interfaces.msg.HmsInfoTable,
+        variable_name="percentage", ####################################
+        expected_value=0.3,         
+        comparison_operator= operator.ge,
         fail_if_bad_comparison=True, 
         qos_profile=2, 
         clearing_policy=policyvar
@@ -40,16 +42,17 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
 
     landing_rth_sequence = py_trees.composites.Sequence(name="RTH Landung",memory=False)
     
-    landing_rth_condition = py_trees_ros.subscribers.CheckData(  
-        name="RTH möglich?", 
-        topic_name="landing_rth_test_topic",
-        topic_type=Bool, 
-        variable_name="rth_available",
-        expected_value= True, 
+    landing_rth_condition = py_trees_ros.subscribers.CheckData(
+        name="Batterie okay?", 
+        topic_name="/wrapper/psdk_ros2/battery", 
+        topic_type=sensor_msgs.msg.BatteryState, 
+        variable_name="power_supply_health", 
+        expected_value=1,         
+        comparison_operator= operator.le,
         fail_if_bad_comparison=True, 
         qos_profile=2, 
         clearing_policy=policyvar
-        )
+    )
     landing_rth_action = py_trees_ros.action_clients.FromConstant(  
         name="RTH aktivieren",
         action_type=actions.Wait,

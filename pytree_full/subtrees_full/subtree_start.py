@@ -36,7 +36,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         variable_name="ground_connection", 
         expected_value=1,         # b
         #comparison_operator= operator.ge,
-        #fail_if_bad_comparison=True, 
+        fail_if_bad_comparison=True, 
         qos_profile=2, 
         clearing_policy=policyvar
     )
@@ -47,9 +47,9 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         name="Homepoint gesetzt?", 
         topic_name="/wrapper/psdk_ros2/home_point_status", 
         topic_type=std_msgs.msg.Bool, 
-        variable_name="percentage", ## finde nur Message-Definitionen zu HomePosition
-        expected_value=0.3,         # b 
-        comparison_operator= operator.ge,
+        variable_name="data", ## finde nur Message-Definitionen zu HomePosition
+        expected_value=False,         # b 
+        # comparison_operator= operator.ge,
         fail_if_bad_comparison=True, 
         qos_profile=2, 
         clearing_policy=policyvar
@@ -67,13 +67,19 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
     start_systemcheck_hms = py_trees_ros.subscribers.CheckData(
         name="HMS aktiv??", 
         topic_name="/wrapper/psdk_ros2/hms_info_table", 
-        topic_type=psdk_interfaces.msg.HmsinfoTable,
-        variable_name="percentage", ####################################
-        expected_value=0.3,         # b 
-        comparison_operator= operator.ge,
+        topic_type=psdk_interfaces.msg.HmsInfoTable,
+        variable_name="table", #################################### Su
+        expected_value=None,         # b 
+        comparison_operator= operator.ne,
+        fail_if_no_data=True,
         fail_if_bad_comparison=True, 
         qos_profile=2, 
         clearing_policy=policyvar
+    )
+
+    converter_hms = py_trees.decorators.FailureIsSuccess(
+        name="converter_hms",
+        child=start_systemcheck_hms
     )
 
     start_systemcheck_edge_sub = py_trees.composites.Sequence("Systemcheck, EDGE und WPM ready?",memory=False)
@@ -136,8 +142,9 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         )
 
     start_sequence.add_children([start_systemcheck_sequence, running_succes_start])     ## Namen richtig machen Malte
-    start_systemcheck_sequence.add_children([start_systemcheck_battery,start_systemcheck_rc,start_systemcheck_hp_sub, start_systemcheck_hms,start_systemcheck_edge_sub,start_systemcheck_wpm_sub])
+    start_systemcheck_sequence.add_children([start_systemcheck_battery,start_systemcheck_rc,start_systemcheck_hp_sub, converter_hms,start_systemcheck_edge_sub,start_systemcheck_wpm_sub])
     start_systemcheck_hp_sub.add_children([start_systemcheck_hp_check,start_systemcheck_hp_set])
     start_systemcheck_edge_sub.add_children([start_systemcheck_edge_ping_send, start_systemcheck_edge_ping_check])
     start_systemcheck_wpm_sub.add_children([start_systemcheck_wpm_ping_send,start_systemcheck_wpm_ping_check])
     return start_sequence
+
