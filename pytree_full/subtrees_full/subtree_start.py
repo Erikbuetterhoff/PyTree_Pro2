@@ -2,7 +2,11 @@ import py_trees
 import py_trees_ros.trees
 import py_trees.console 
 from std_msgs.msg import Bool
+import std_msgs.msg
 import action_pkg.action as actions
+import operator
+import sensor_msgs.msg
+import psdk_interfaces.msg
 
 policyvar = 3
 
@@ -10,46 +14,79 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
 
     start_sequence = py_trees.composites.Sequence("Startsequenz einleiten",memory=False)
 
-    start_startup_selector = py_trees.composites.Selector("Startsequenz prüfen",memory=False)
+    start_systemcheck_sequence = py_trees.composites.Sequence("Systemcheck, EDGE und WPM ready?",memory=False)
 
 
-    start_startup_condition = py_trees_ros.subscribers.CheckData(
-        name="Startsequenz abgeschlossen?", 
-        topic_name="start_sequence_ok_topic", 
-        topic_type=Bool, 
-        variable_name="data", 
-        expected_value=True, 
+    start_systemcheck_battery = py_trees_ros.subscribers.CheckData(
+        name="Batterie okay?", 
+        topic_name="/wrapper/psdk_ros2/battery", 
+        topic_type=sensor_msgs.msg.BatteryState, 
+        variable_name="percentage", 
+        expected_value=0.3,         # b 
+        comparison_operator= operator.ge,
         fail_if_bad_comparison=True, 
         qos_profile=2, 
         clearing_policy=policyvar
     )
 
-    start_sub_sequence = py_trees.composites.Sequence("Systemcheck, EDGE und WPM ready?",memory=False)
+    start_systemcheck_rc = py_trees_ros.subscribers.CheckData(
+        name="Remote verbunden?", 
+        topic_name="/wrapper/psdk_ros2/rc_connection_status", 
+        topic_type=psdk_interfaces.msg.RCConnectionStatus, ### oder doch std_msgs.msg.Bool??
+        variable_name="ground_connection", 
+        expected_value=1,         # b
+        #comparison_operator= operator.ge,
+        #fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=policyvar
+    )
 
-    start_check_selector = py_trees.composites.Selector("Systemcheck",memory=False)
+    start_systemcheck_hp_sub = py_trees.composites.Selector("Homepoint Subtree",memory=False)
 
-    start_systemcheck_condition = py_trees_ros.subscribers.CheckData(
-        name="Systemcheck erfolgreich?", 
-        topic_name="start_check_ok_topic", 
-        topic_type=Bool, 
-        variable_name="data", 
-        expected_value=True, 
+    start_systemcheck_hp_check = py_trees_ros.subscribers.CheckData(
+        name="Homepoint gesetzt?", 
+        topic_name="/wrapper/psdk_ros2/home_point_status", 
+        topic_type=std_msgs.msg.Bool, 
+        variable_name="percentage", ## finde nur Message-Definitionen zu HomePosition
+        expected_value=0.3,         # b 
+        comparison_operator= operator.ge,
         fail_if_bad_comparison=True, 
         qos_profile=2, 
         clearing_policy=policyvar
     )
 
-    start_systemcheck_action = py_trees_ros.action_clients.FromConstant(  
-        name="Systemcheck durchführen",
+    start_systemcheck_hp_set = py_trees_ros.action_clients.FromConstant(  
+        name="Neuen Homepoint setzen",
         action_type=actions.Wait,
         action_name="wait_action",
         action_goal=actions.Wait.Goal(timer=5),
         generate_feedback_message=lambda msg: msg.feedback.part_result
     )
 
-    start_edge_selector = py_trees.composites.Selector("EDGE Verbindung",memory=False)
 
-    start_edge_condition = py_trees_ros.subscribers.CheckData(
+    start_systemcheck_hms = py_trees_ros.subscribers.CheckData(
+        name="HMS aktiv??", 
+        topic_name="/wrapper/psdk_ros2/hms_info_table", 
+        topic_type=psdk_interfaces.msg.HmsinfoTable,
+        variable_name="percentage", ####################################
+        expected_value=0.3,         # b 
+        comparison_operator= operator.ge,
+        fail_if_bad_comparison=True, 
+        qos_profile=2, 
+        clearing_policy=policyvar
+    )
+
+    start_systemcheck_edge_sub = py_trees.composites.Sequence("Systemcheck, EDGE und WPM ready?",memory=False)
+    
+    start_systemcheck_edge_ping_send = py_trees_ros.action_clients.FromConstant(  
+        name="Ping an Edge senden",
+        action_type=actions.Wait,
+        action_name="wait_action",
+        action_goal=actions.Wait.Goal(timer=5),
+        generate_feedback_message=lambda msg: msg.feedback.part_result
+    )
+
+    start_systemcheck_edge_ping_check = py_trees_ros.subscribers.CheckData(
         name="Mit EDGE verbunden?", 
         topic_name="start_edge_ok_topic", 
         topic_type=Bool, 
@@ -60,18 +97,12 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         clearing_policy=policyvar
     )
 
-    start_edge_action = py_trees_ros.action_clients.FromConstant(  
-        name="Mit EDGE verbinden",
-        action_type=actions.Wait,
-        action_name="wait_action",
-        action_goal=actions.Wait.Goal(timer=5),
-        generate_feedback_message=lambda msg: msg.feedback.part_result
-    )
 
-    start_wpmload_selector = py_trees.composites.Selector("WPM",memory=False)
+    start_systemcheck_wpm_sub = py_trees.composites.Sequence("Systemcheck, EDGE und WPM ready?",memory=False)
 
-    start_wpmload_condition = py_trees_ros.subscribers.CheckData(
-        name="WPM geladen?", 
+
+    start_systemcheck_wpm_ping_check = py_trees_ros.subscribers.CheckData(
+        name="Ping an WPM senden", 
         topic_name="start_wpm_ok_topic", 
         topic_type=Bool, 
         variable_name="data", 
@@ -82,8 +113,8 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
     )
 
 
-    start_wpmload_action = py_trees_ros.action_clients.FromConstant(  
-        name="WPM laden",
+    start_systemcheck_wpm_ping_send = py_trees_ros.action_clients.FromConstant(  
+        name="WPM geladen?",
         action_type=actions.Wait,
         action_name="wait_action",
         action_goal=actions.Wait.Goal(timer=5),
@@ -104,11 +135,9 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         child = start_wpm_action
         )
 
-    start_sequence.add_children([start_startup_selector, running_succes_start])     ## Namen richtig machen Malte
-    start_startup_selector.add_children([start_startup_condition,start_sub_sequence])
-    start_sub_sequence.add_children([start_check_selector,start_edge_selector,start_wpmload_selector])
-    start_check_selector.add_children([start_systemcheck_condition,start_systemcheck_action])
-    start_edge_selector.add_children([start_edge_condition,start_edge_action])
-    start_wpmload_selector.add_children([start_wpmload_condition,start_wpmload_action])
-
+    start_sequence.add_children([start_systemcheck_sequence, running_succes_start])     ## Namen richtig machen Malte
+    start_systemcheck_sequence.add_children([start_systemcheck_battery,start_systemcheck_rc,start_systemcheck_hp_sub, start_systemcheck_hms,start_systemcheck_edge_sub,start_systemcheck_wpm_sub])
+    start_systemcheck_hp_sub.add_children([start_systemcheck_hp_check,start_systemcheck_hp_set])
+    start_systemcheck_edge_sub.add_children([start_systemcheck_edge_ping_send, start_systemcheck_edge_ping_check])
+    start_systemcheck_wpm_sub.add_children([start_systemcheck_wpm_ping_send,start_systemcheck_wpm_ping_check])
     return start_sequence

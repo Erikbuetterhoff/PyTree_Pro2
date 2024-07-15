@@ -6,6 +6,23 @@
     {
       "version": "0.3.0",
       "scope": "tree",
+      "id": "2dcb60b9-40a5-457a-bb1b-a46a9095d4be",
+      "title": "A behavior tree",
+      "description": "",
+      "root": null,
+      "properties": {},
+      "nodes": {},
+      "display": {
+        "camera_x": 647,
+        "camera_y": 328,
+        "camera_z": 1,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "tree",
       "id": "c6d42773-9a7c-4e5a-a246-58c02c1ad880",
       "title": "A behavior tree",
       "description": "",
@@ -252,17 +269,6 @@
             "cace2ae4-6275-45d0-adb7-a1af96badbbd"
           ]
         },
-        "4267e76f-0155-4e57-881c-0b51adb4c0b3": {
-          "id": "4267e76f-0155-4e57-881c-0b51adb4c0b3",
-          "name": "Startsequenz abgeschlossen?",
-          "title": "Startsequenz abgeschlossen?",
-          "description": "start_startup_condition\nStartsequenz abgeschlossen, wenn\n- alle Systeme verbunden (ROS publisher gibt keine Errors aus oder sendet konstant Daten)\n- Waypointmission geladen (Koordinaten bis Ziel geladen und Flugtrajectory bestimmt)\n- alle Flugsysteme funktionieren (alle ROS topics senden Daten ohne Error)\n- sobald alle Anforderungen für den Abschluss der Startsequenz erfolgt sind, ist die Condition \"Startsequenz abgeschlossen\" erfüllt und kann Success an die Sequenz weitergeben.",
-          "properties": {},
-          "display": {
-            "x": -1704,
-            "y": -24
-          }
-        },
         "d01d2f53-a5a7-4b04-8202-979cec4a8823": {
           "id": "d01d2f53-a5a7-4b04-8202-979cec4a8823",
           "name": "Letzter Waypoint erreicht?",
@@ -277,129 +283,76 @@
         "afc19e68-4be6-4e51-827e-173390d259c3": {
           "id": "afc19e68-4be6-4e51-827e-173390d259c3",
           "name": "Systemcheck erfolgreich?",
-          "title": "Systemcheck erfolgreich?",
-          "description": "start_systemcheck_condition\n\nAlle DJI spezifischen Systemchecks\n- GPS\n- Collision System\n-",
+          "title": "Akku genug geladen?",
+          "description": "start_systemcheck_battery",
           "properties": {},
           "display": {
-            "x": -1680,
-            "y": 144
-          }
-        },
-        "54badf1b-e974-4ea8-a68e-ae1bf589365b": {
-          "id": "54badf1b-e974-4ea8-a68e-ae1bf589365b",
-          "name": "Priority",
-          "title": "start_check_selector",
-          "description": "",
-          "properties": {},
-          "display": {
-            "x": -1608,
-            "y": 48
-          },
-          "children": [
-            "afc19e68-4be6-4e51-827e-173390d259c3",
-            "b47170bb-fa95-45d7-8b6c-e397a486f376"
-          ]
-        },
-        "b47170bb-fa95-45d7-8b6c-e397a486f376": {
-          "id": "b47170bb-fa95-45d7-8b6c-e397a486f376",
-          "name": "Systemcheck durchführen",
-          "title": "Systemcheck durchführen",
-          "description": "start_systemcheck_action",
-          "properties": {},
-          "display": {
-            "x": -1416,
-            "y": 144
+            "x": -1848,
+            "y": 324
           }
         },
         "9e51f52f-adbe-4f0e-9aeb-89e8669a580a": {
           "id": "9e51f52f-adbe-4f0e-9aeb-89e8669a580a",
           "name": "Mit Edge verbunden",
-          "title": "Mit EDGE verbunden",
-          "description": "start_edge_condition",
+          "title": "Edge Ping Check",
+          "description": "start_systemcheck_edge_ping_check",
           "properties": {},
           "display": {
-            "x": -1116,
-            "y": 144
+            "x": -912,
+            "y": 168
           }
         },
         "05646a58-fce4-4a29-8a56-00dbb646596e": {
           "id": "05646a58-fce4-4a29-8a56-00dbb646596e",
           "name": "Mit EDGE verbinden",
-          "title": "Mit EDGE verbinden",
-          "description": "start_edge_action",
+          "title": "Ping an Edge",
+          "description": "start_systemcheck_edge_ping_send",
           "properties": {},
           "display": {
-            "x": -876,
-            "y": 144
+            "x": -1092,
+            "y": 168
           }
         },
         "7ad5c38b-f807-46a5-9335-46fe36da0a9e": {
           "id": "7ad5c38b-f807-46a5-9335-46fe36da0a9e",
           "name": "Sequence",
-          "title": "start_sub_sequence",
-          "description": "",
+          "title": "start_systemcheck_sequence",
+          "description": "Systemcheck-Sequenz",
           "properties": {},
           "display": {
-            "x": -1380,
-            "y": -48
+            "x": -1404,
+            "y": -84
           },
           "children": [
-            "54badf1b-e974-4ea8-a68e-ae1bf589365b",
-            "ba91df4a-7c06-49d6-85ca-36e574659ab5",
-            "ef977a00-c972-4716-95d7-e205fad79dfe"
-          ]
-        },
-        "ba91df4a-7c06-49d6-85ca-36e574659ab5": {
-          "id": "ba91df4a-7c06-49d6-85ca-36e574659ab5",
-          "name": "Priority",
-          "title": "start_edge_selector",
-          "description": "",
-          "properties": {},
-          "display": {
-            "x": -1044,
-            "y": 48
-          },
-          "children": [
-            "9e51f52f-adbe-4f0e-9aeb-89e8669a580a",
-            "05646a58-fce4-4a29-8a56-00dbb646596e"
+            "d3dc8012-f9c1-45a5-8900-2c12019549aa",
+            "7fa5dfc5-1ad6-4edd-86e5-b8c744094c9f",
+            "97c9c8ff-3745-4ae0-92ff-2e093f83b28f",
+            "afc19e68-4be6-4e51-827e-173390d259c3",
+            "1b124985-797f-4b14-87b0-67dd64910600",
+            "9b45e8be-43e7-4fa7-863e-63244a094808"
           ]
         },
         "6ba26796-907c-469a-8a14-04bfda76bb81": {
           "id": "6ba26796-907c-469a-8a14-04bfda76bb81",
           "name": "WPM geladen",
-          "title": "WPM geladen?",
-          "description": "start_wpmload_condition",
+          "title": "Ping WPM geladen?",
+          "description": "start_systemcheck_wpm_ping_send",
           "properties": {},
           "display": {
-            "x": -636,
-            "y": 144
+            "x": -708,
+            "y": 168
           }
         },
         "7646630d-016c-4b9d-b2cb-6539255213ff": {
           "id": "7646630d-016c-4b9d-b2cb-6539255213ff",
           "name": "WPM ladem",
-          "title": "WPM laden",
-          "description": "start_wpmload_action",
+          "title": "WPM Ping Check",
+          "description": "start_systemcheck_wpm_ping_check",
           "properties": {},
           "display": {
-            "x": -420,
-            "y": 144
+            "x": -492,
+            "y": 168
           }
-        },
-        "ef977a00-c972-4716-95d7-e205fad79dfe": {
-          "id": "ef977a00-c972-4716-95d7-e205fad79dfe",
-          "name": "Priority",
-          "title": "start_wpmload_selector",
-          "description": "",
-          "properties": {},
-          "display": {
-            "x": -600,
-            "y": 48
-          },
-          "children": [
-            "6ba26796-907c-469a-8a14-04bfda76bb81",
-            "7646630d-016c-4b9d-b2cb-6539255213ff"
-          ]
         },
         "f08a3225-a69e-49a1-81fb-e1262a883e63": {
           "id": "f08a3225-a69e-49a1-81fb-e1262a883e63",
@@ -950,23 +903,8 @@
             "y": -336
           },
           "children": [
-            "f43edc41-c4da-44af-8d64-f0931bab9ffb",
-            "ec359fbc-f012-4663-8b1d-fc46a4abcb51"
-          ]
-        },
-        "f43edc41-c4da-44af-8d64-f0931bab9ffb": {
-          "id": "f43edc41-c4da-44af-8d64-f0931bab9ffb",
-          "name": "Priority",
-          "title": "start_startup_selector",
-          "description": "Make sure starting sequence is completed",
-          "properties": {},
-          "display": {
-            "x": -1476,
-            "y": -180
-          },
-          "children": [
-            "7ad5c38b-f807-46a5-9335-46fe36da0a9e",
-            "4267e76f-0155-4e57-881c-0b51adb4c0b3"
+            "ec359fbc-f012-4663-8b1d-fc46a4abcb51",
+            "7ad5c38b-f807-46a5-9335-46fe36da0a9e"
           ]
         },
         "ec359fbc-f012-4663-8b1d-fc46a4abcb51": {
@@ -1005,12 +943,101 @@
             "x": 180,
             "y": -216
           }
+        },
+        "1b124985-797f-4b14-87b0-67dd64910600": {
+          "id": "1b124985-797f-4b14-87b0-67dd64910600",
+          "name": "Systemcheck erfolgreich?",
+          "title": "RC verbunden?",
+          "description": "start_systemcheck_rc",
+          "properties": {},
+          "display": {
+            "x": -1632,
+            "y": 324
+          }
+        },
+        "3ea7465f-14fe-45c9-870c-33740fbd439c": {
+          "id": "3ea7465f-14fe-45c9-870c-33740fbd439c",
+          "name": "Systemcheck erfolgreich?",
+          "title": "Homepoint set?",
+          "description": "start_systemcheck_hp_check",
+          "properties": {},
+          "display": {
+            "x": -1416,
+            "y": 324
+          }
+        },
+        "8c11d037-8452-40d7-b579-79aaee8acb20": {
+          "id": "8c11d037-8452-40d7-b579-79aaee8acb20",
+          "name": "WPM ladem",
+          "title": "Set homepoint",
+          "description": "start_systemcheck_hp_set",
+          "properties": {},
+          "display": {
+            "x": -1188,
+            "y": 324
+          }
+        },
+        "97c9c8ff-3745-4ae0-92ff-2e093f83b28f": {
+          "id": "97c9c8ff-3745-4ae0-92ff-2e093f83b28f",
+          "name": "Priority",
+          "title": "start_systemcheck_hp_sub",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -1344,
+            "y": 156
+          },
+          "children": [
+            "8c11d037-8452-40d7-b579-79aaee8acb20",
+            "3ea7465f-14fe-45c9-870c-33740fbd439c"
+          ]
+        },
+        "9b45e8be-43e7-4fa7-863e-63244a094808": {
+          "id": "9b45e8be-43e7-4fa7-863e-63244a094808",
+          "name": "Systemcheck erfolgreich?",
+          "title": "HMS Abfrage",
+          "description": "start_systemcheck_hms",
+          "properties": {},
+          "display": {
+            "x": -924,
+            "y": 324
+          }
+        },
+        "d3dc8012-f9c1-45a5-8900-2c12019549aa": {
+          "id": "d3dc8012-f9c1-45a5-8900-2c12019549aa",
+          "name": "Sequence",
+          "title": "start_systemcheck_edge_sub",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -1020,
+            "y": 24
+          },
+          "children": [
+            "05646a58-fce4-4a29-8a56-00dbb646596e",
+            "9e51f52f-adbe-4f0e-9aeb-89e8669a580a"
+          ]
+        },
+        "7fa5dfc5-1ad6-4edd-86e5-b8c744094c9f": {
+          "id": "7fa5dfc5-1ad6-4edd-86e5-b8c744094c9f",
+          "name": "Sequence",
+          "title": "start_systemcheck_wpm_sub",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": -636,
+            "y": 48
+          },
+          "children": [
+            "7646630d-016c-4b9d-b2cb-6539255213ff",
+            "6ba26796-907c-469a-8a14-04bfda76bb81"
+          ]
         }
       },
       "display": {
-        "camera_x": -4945,
-        "camera_y": 770.5,
-        "camera_z": 0.75,
+        "camera_x": 1232,
+        "camera_y": 322.5,
+        "camera_z": 0.5,
         "x": 2808,
         "y": -1848
       }

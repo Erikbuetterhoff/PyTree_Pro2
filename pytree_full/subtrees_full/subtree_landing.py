@@ -3,6 +3,8 @@ import py_trees_ros.trees
 import py_trees.console 
 from std_msgs.msg import Bool
 import action_pkg.action as actions
+import operator
+import sensor_msgs.msg
 
 policyvar = 3
 
@@ -14,10 +16,11 @@ def subtree_landing() -> py_trees.behaviour.Behaviour:
     
     landing_battery_condition = py_trees_ros.subscribers.CheckData(
         name="Batterie okay?", 
-        topic_name="landing_battery_ok_topic", 
-        topic_type=Bool, 
-        variable_name="data", 
-        expected_value=True, 
+        topic_name="/wrapper/psdk_ros2/battery", 
+        topic_type=sensor_msgs.msg.BatteryState, 
+        variable_name="percentage", 
+        expected_value=0.3,         # b 
+        comparison_operator= operator.ge,
         fail_if_bad_comparison=True, 
         qos_profile=2, 
         clearing_policy=policyvar
