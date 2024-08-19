@@ -1,6 +1,12 @@
-# PyTree_Pro2
+# Erstellen eines Behavior Trees für die Drohne im Projekt "5URVIVE"
 
-clearing_policy auf 3
+Dieses Repo enthält einen Behavior Tree erstellt mit pytrees und pytree_ros, welcher autonome Verhalten einer Drohne ermöglichen soll.
+
+### Haupt launch-file 
+```
+ros2 launch pytree_full full_tree.launch.py 
+```
+Um das Verhalten des Trees überprüfen zu können, können die im "5URVIV" Projekt aufgezeichneten Rosbags genutzt werden.
 # Install py-trees-tree-viewer on humble
 ```
 sudo apt-get install libqt5webengine5 libqt5webenginewidgets5 python3-pyqt5.qtwebengine
