@@ -21,7 +21,7 @@ def subtree_zone() -> py_trees.behaviour.Behaviour:
         clearing_policy=policyvar
     )
 
-    zone_sub_selector = py_trees.composites.Selector("",memory=False)
+    zone_sub_selector = py_trees.composites.Selector("Landung Check",memory=False)
 
     zone_leavezone_action = py_trees_ros.action_clients.FromConstant(  
         name="Flugverbotszone verlassen",
@@ -51,3 +51,4 @@ def subtree_zone() -> py_trees.behaviour.Behaviour:
     zone_sub_selector.add_children([zone_leavezone_action,zone_hpl_action,zone_rth_action])
 
     return zone_selector
+

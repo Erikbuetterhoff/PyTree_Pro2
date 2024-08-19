@@ -32,3 +32,4 @@ def subtree_waypoint() -> py_trees.behaviour.Behaviour:
     waypoint_selector.add_children([waypoint_condition,waypoint_action])
 
     return waypoint_selector
+

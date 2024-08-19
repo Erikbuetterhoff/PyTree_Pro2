@@ -70,3 +70,4 @@ def subtree_lidar() -> py_trees.behaviour.Behaviour:
     lidar_scan_sequence.add_children([lidar_scan_height_action,lidar_scan_action])
 
     return lidar_sequence
+

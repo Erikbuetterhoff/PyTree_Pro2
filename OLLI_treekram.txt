@@ -1,5 +1,0 @@
-success wenn weniger als 1m über dem Boden  
-failure wenn lokalisierung nicht funktioniert -> confidence
-
-
-sinken solange lindar io ist 

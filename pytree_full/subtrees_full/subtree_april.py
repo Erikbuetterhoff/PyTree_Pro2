@@ -140,3 +140,7 @@ def subtree_april() -> py_trees.behaviour.Behaviour:
     april_landing_selector.add_children([april_landing_condition,april_landing_action])
 
     return april_sequence
+
+root = subtree_april()
+dot_file_path = "/home/jelte/Ausgabe"
+py_trees.display.render_dot_tree(root, target_directory=dot_file_path, visibility_level=0)

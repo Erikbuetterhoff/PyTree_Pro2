@@ -32,7 +32,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
     start_systemcheck_rc = py_trees_ros.subscribers.CheckData(
         name="Remote verbunden?", 
         topic_name="/wrapper/psdk_ros2/rc_connection_status", 
-        topic_type=psdk_interfaces.msg.RCConnectionStatus, ### oder doch std_msgs.msg.Bool??
+        topic_type=psdk_interfaces.msg.RCConnectionStatus,
         variable_name="ground_connection", 
         expected_value=1,         # b
         #comparison_operator= operator.ge,
@@ -47,7 +47,7 @@ def subtree_start() -> py_trees.behaviour.Behaviour:
         name="Homepoint gesetzt?", 
         topic_name="/wrapper/psdk_ros2/home_point_status", 
         topic_type=std_msgs.msg.Bool, 
-        variable_name="data", ## finde nur Message-Definitionen zu HomePosition
+        variable_name="data",
         expected_value=False,         # b 
         # comparison_operator= operator.ge,
         fail_if_bad_comparison=True, 

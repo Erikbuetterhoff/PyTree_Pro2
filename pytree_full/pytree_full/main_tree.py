@@ -44,6 +44,11 @@ def main():
         root=root,
         unicode_tree_debug=True
     )
+
+    
+
+
+
     try:
         tree.setup(timeout=15.0)
     except py_trees_ros.exceptions.TimedOutError as e:
